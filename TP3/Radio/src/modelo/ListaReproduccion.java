@@ -13,22 +13,28 @@ import java.util.Scanner;
 public class ListaReproduccion {
     private static final int TAMANIO_ARRAY = 100;
     private static int contadorCanciones;
-    private Cancion[] lCanciones = new Cancion[TAMANIO_ARRAY];
+    private Cancion[] Canciones;
     
     public ListaReproduccion()
     {
         ListaReproduccion.contadorCanciones = 0;
+        Canciones = new Cancion[1];
     }
     
     public Cancion[] getLCanciones()
     {
-        return this.lCanciones;
+        return this.Canciones;
     }
     
     public void insertar(Cancion nCancion)
     {
-        ListaReproduccion.contadorCanciones++;
-        lCanciones[ListaReproduccion.contadorCanciones-1] = nCancion;
+        if (ListaReproduccion.contadorCanciones < Canciones.length) {
+            ListaReproduccion.contadorCanciones++;    
+        } else {
+            ListaReproduccion.contadorCanciones++;
+            this.Canciones = redimensionarArray(this.Canciones);
+        }
+        this.Canciones[ListaReproduccion.contadorCanciones-1] = nCancion;
     }
     
     public Cancion getCancion(int indice)
@@ -40,7 +46,7 @@ public class ListaReproduccion {
             switch (sc.nextLine().toUpperCase())
             {
                 case "S": 
-                    return lCanciones[0];
+                    return Canciones[0];
                 case "N":
                     return null;
                 default: 
@@ -49,11 +55,11 @@ public class ListaReproduccion {
             }
         }
         
-        if (lCanciones[indice] == null){
+        if (Canciones[indice] == null){
             System.out.print("\tNo existe una cancion en el indice especificado.\n\n");
             return null;
         } else {
-            return lCanciones[indice];
+            return Canciones[indice];
         }
         
     }
@@ -62,17 +68,17 @@ public class ListaReproduccion {
     {
         if (indice < 0) {
             System.out.println("\tError: ingrese un indice valido (entero entre 0"
-                    + " y "+ListaReproduccion.TAMANIO_ARRAY+")\n"
+                    + " y "+ (ListaReproduccion.contadorCanciones-1) +")\n"
                             + "\tNo se realizará el reemplazo.\n\n");
-        } else if (indice > lCanciones.length-1) {
-            System.out.print("\tError: la lista de canciones solo soporta hasta"
-                    + " el indice "+(lCanciones.length-1)+"\n"
+        } else if (indice > Canciones.length-1) {
+            System.out.print("\tError: la lista de canciones solo soporta el reemplazo hasta"
+                    + " el indice "+(Canciones.length-1)+"\n"
                             + "\tNo se realizará el reemplazo.\n\n");
         } else {
-            if (this.lCanciones[indice] == null) {
+            if (this.Canciones[indice] == null) {
                 System.out.println("\tNo hay cancion en este indice para ser reemplazada\n\n");
             } else {
-                this.lCanciones[indice] = nCancion;
+                this.Canciones[indice] = nCancion;
             }
         }
     }
@@ -85,7 +91,7 @@ public class ListaReproduccion {
     public void removerEn(int indice)
     {
         if (indice >= 0) {
-            System.arraycopy(this.lCanciones, indice + 1, this.lCanciones, indice, this.lCanciones.length - 1 - indice);
+            System.arraycopy(this.Canciones, indice + 1, this.Canciones, indice, this.Canciones.length - 1 - indice);
             ListaReproduccion.contadorCanciones--;   
         }
     }
@@ -93,18 +99,24 @@ public class ListaReproduccion {
     public void insertarEn(Cancion nCancion, int indice)
     {
         if (indice >= 0 && indice <= ListaReproduccion.contadorCanciones) {
-            if (this.lCanciones[indice] == null) {
-                this.lCanciones[indice] = nCancion;
+            if (this.Canciones[indice] == null) {
+                this.Canciones[indice] = nCancion;
             } else {
-                Utilidades.desplazarElementosListaReproduccion(this.lCanciones, ListaReproduccion.contadorCanciones, indice, 1);
-                this.lCanciones[indice] = nCancion;
+                this.Canciones = redimensionarArray(this.Canciones);
+                desplazarElementosListaReproduccion(this.Canciones, ListaReproduccion.contadorCanciones, indice, 1);
+                this.Canciones[indice] = nCancion;
             }
         }  else if (indice > 0 && indice > ListaReproduccion.contadorCanciones){
             System.out.println("\tNo puede haber un salto de indice, se agrega como ultimo elemento\n\n");
             this.insertar(nCancion);
             return;
         } else if(indice < 0){
-            lCanciones[ListaReproduccion.contadorCanciones] = nCancion;
+            /*  
+                Si no redimensiono el array cuando el metodo intenta insertar algo al final
+                se sobrepasa el tamaño del array
+            */
+            this.Canciones = redimensionarArray(this.Canciones);
+            Canciones[ListaReproduccion.contadorCanciones] = nCancion;
         }
         ListaReproduccion.contadorCanciones++;    
     }
@@ -112,8 +124,8 @@ public class ListaReproduccion {
     public int encontrarIndice(Cancion cancionRequerida)
     {
         int i;
-        for (i=0; i<this.lCanciones.length; i++) {
-            if(this.lCanciones[i] == cancionRequerida){
+        for (i=0; i<this.Canciones.length; i++) {
+            if(this.Canciones[i] == cancionRequerida){
                 return i;
             }
         }
@@ -123,8 +135,8 @@ public class ListaReproduccion {
     public boolean contiene(Cancion cancionRequerida)
     {
         int i;
-        for (i=0; i<this.lCanciones.length; i++) {
-            if(this.lCanciones[i] == cancionRequerida){
+        for (i=0; i<this.Canciones.length; i++) {
+            if(this.Canciones[i] == cancionRequerida){
                 return true;
             }
         }
@@ -135,5 +147,25 @@ public class ListaReproduccion {
     public String toString()
     {
         return Utilidades.imprimirArray(this);
+    }
+    
+    /*
+        Métodos privados
+    */
+    private static Cancion[] redimensionarArray(Cancion[] lCanciones)
+    {
+        Cancion[] lAuxiliar = new Cancion[ListaReproduccion.contadorCanciones+1];
+        System.arraycopy(lCanciones, 0, lAuxiliar, 0, lCanciones.length);
+        return lAuxiliar;
+    }
+    
+    private static Cancion[] desplazarElementosListaReproduccion(Cancion[] LR, int cCanciones, int despIni, int desp)
+    {
+        int i;
+        for (i=cCanciones; i >= despIni + desp; i--) 
+            LR[i] = LR[i-desp];
+        for (i=despIni; i < despIni + desp; i++)
+            LR[i] = null;
+        return LR;
     }
 }

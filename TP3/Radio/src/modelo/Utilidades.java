@@ -12,21 +12,11 @@ import java.math.RoundingMode;
  * @author ulisss
  */
 public class Utilidades {
-    public static double redondear(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
+    public static double redondear(double valor, int cDecimales) {
+        if (cDecimales < 0) throw new IllegalArgumentException();
+        BigDecimal bd = new BigDecimal(valor);
+        bd = bd.setScale(cDecimales, RoundingMode.HALF_UP);
         return bd.doubleValue();
-    }
-    
-    public static Cancion[] desplazarElementosListaReproduccion(Cancion[] LR, int cCanciones, int despIni, int desp)
-    {
-        int i;
-        for (i=cCanciones; i >= despIni + desp; i--) 
-            LR[i] = LR[i-desp];
-        for (i=despIni; i < despIni + desp; i++)
-            LR[i] = null;
-        return LR;
     }
     
     public static double obtenerNumeroAleatorio(double min, double max)
@@ -65,13 +55,14 @@ public class Utilidades {
         for (i=0; i < lAcciones.length; i++) {
             porcentajeCambio = lAcciones[i].getPorcentajeCambio();
             System.out.println("Para las acciones de ("+lAcciones[i].getSimbolo()+") "+lAcciones[i].getNombre()+":");
+            System.out.print("Precio Cierre Previo: "+redondear(lAcciones[i].getPrecioCierrePrevio(),2)+"\nPrecio Actual: "+redondear(lAcciones[i].getPrecioActual(),2)+"\n");
             if (porcentajeCambio < 0) {
-                System.out.print("El valor de las acciones cayo, porcentaje de "
+                System.out.print("El valor de las acciones CAYÓ,\nporcentaje de "
                         + "cambio es de: "+porcentajeCambio+"%\n\n");
                 System.out.print("---------------------------------------------"
                         + "---------------------------------------\n\n");
             } else if (porcentajeCambio > 0) {
-                System.out.print("El valor de las acciones subio, porcentaje de"
+                System.out.print("El valor de las acciones SUBIÓ,\nporcentaje de"
                         + "cambio es de: "+porcentajeCambio+"%\n\n");
                 System.out.print("---------------------------------------------"
                         + "---------------------------------------\n\n");
