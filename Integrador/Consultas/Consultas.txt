@@ -1,0 +1,8 @@
+Primera visita:
+
+Consulta: Esta bien que exista una relacion muchos a muchos sin nunguna clase en medio?
+Referencia: clase_10, Diapositiva 18 vs K&K Cap 10, pág 305 <== Como se programa esto?
+Integrador: un TipoArticulo puede tener muchas TareasPredeterminadas asociadas y 
+
+Consulta: Algun motivo especial por el salteo de clases? me perdí algo?
+Referencia: Presentaciones desde Clase 5 a Clase 8 y de Clase 8 a Clase 10
