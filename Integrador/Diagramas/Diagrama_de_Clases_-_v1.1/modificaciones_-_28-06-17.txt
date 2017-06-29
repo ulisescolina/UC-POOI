@@ -1,0 +1,11 @@
+1. Falta poner si la tarea esta finalizada en la clase Tarea a Realizar 
+  - Puede ser con fecha de fin
+  - o un boolean: Ya está. Elegi esta, y la fecha en la que se termina la tarea la puedo sacar de la clase tiempo invertido, buscando cual fue la ultima en crearse
+2. Un articulo es de un Tipo de Articulo: Ya está.
+3. Sacar id_tareaarealizar del TiempoInvertido: Ya está.
+4. Cambios
+  1. Cardinalidad entre Tecnico y TipoArticulo, en donde se expresa que el tecnico puede tener 0..* ya que al momento de ser creado no se le va a obligar al usuario que carge los tipos de articulo que este maneja
+  2. Cardinalidad entre Tecnico y TareasARealizar, en donde se expresa que el tecnico puede tener 0..* ya que al momento de ser creado probablemente el tecnico no posea tareas a realizar para ser puestas bajo su responsabilidad
+  3. Cardinalidad entre TareaARealizar y TiempoInvertido, en donde se expresa que la tarea a realizar puede tener 0..* ya que al momento de ser creada la tarea no se le va a obligar al usuario que carge los los tiempos que se invirtieron ya que puede que aun no se haya invertido tiempo alguno.
+
+

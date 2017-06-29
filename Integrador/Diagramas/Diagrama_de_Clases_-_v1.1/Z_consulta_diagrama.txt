@@ -1,0 +1,2 @@
+1: Las clases Abstractas, ¿Se persisten o se persisten las clases que extienden a esta? Clases abstractas no se persisten.
+2: Teniendo en cuenta esto anterior, ¿Cual es la manera mas segura de identificar las clases que debo persistir? /*Te debo*/
