@@ -1,0 +1,58 @@
+@startuml clases_identificadas_atributos.png
+
+abstract class Tecnico {
+  - nombres:String
+  - apellidos:String
+  - numDocumentoUnico:String
+}
+
+class EmpleadoJornalero {
+  - tarifaPorHora:double
+}
+
+class EmpleadoMensual {
+- sueldoMensual:double
+}
+
+class TipoDeArticulo {
+  - id_tipoarticulo:int
+  - codigo:String
+  - nombre:String
+}
+
+class Articulo {
+  - id_articulo:int
+  - nombre:String
+}
+
+class SecuenciaDeTarea {
+  - id_secuenciatarea:int
+  - fechaInicio:Date
+  - fechaFin:Date
+}
+
+class TareaARealizar {
+  - id_tarearealizar:int
+}
+
+class TareaDefinida {
+  - id_tareadefinida:int
+  - codigoUnico:String
+  - nombre:String
+  - descripcion:String
+}
+
+class Reclamo {
+  - numero:int /*Identificador de la clase*/
+  - descProblema:String
+  - fechaEntrada:Date
+  - FechaEstimEntrega:Date
+}
+
+class TiempoInvertido {
+  - id_tareaarealizar:int
+  - fecha:Date
+  - horasInvertidas:Time
+}
+
+@enduml
