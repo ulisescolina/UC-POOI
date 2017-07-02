@@ -1,0 +1,16 @@
+@startuml clases_identificadass.png
+
+interface AltaBajaModificacion
+abstract class Empleado
+class Empresa
+class Tecnico
+class Operador
+class TipoDeArticulo
+class Articulo
+class Reparacion
+class Recursos
+class SecuenciaDeTareas
+class TareasDefinidas
+class Reclamos
+
+@enduml

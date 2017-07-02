@@ -1,0 +1,79 @@
+@startuml diagrama_clase_v1.png
+interface AltaBajaModificacion
+
+abstract class Empleado {
+  - nombres:String
+  - apellidos:String
+  - numDocumento:String
+}
+
+class Empresa {
+  - id:int
+  - nombre:String
+  - cuit:String
+}
+
+class Tecnico {
+  - tiposArticulosCapacitado:TipoDeArticulo[]
+}
+
+class Operador
+
+class TipoDeArticulo {
+  - codigo:String
+  - nombre:String
+}
+
+class Articulo {
+  - nombre:String
+  - tipoArticulo:TipoDeArticulo
+}
+
+class Reparacion {
+  - recursosAsignados:Recursos[]
+}
+
+class Recurso {
+  - nombre:String
+  - canDisponible:int
+}
+
+class SecuenciaDeTareas {
+  - tarea:TareasDefinidas
+  - fechaInicio:Date
+  - fechaFin:Date
+}
+
+class TareasDefinidas {
+  - codigoUnico:String
+  - nombre:String
+  - descripcion:String
+  - tipoArticulos:TipoDeArticulo[]
+}
+
+class Reclamo {
+  - numero:int
+  - descProblema:String
+  - articulo:Articulo
+  - fechaEntrada:Date
+  - FechaEstimEntrega:Date
+}
+
+AltaBajaModificacion <|-- Empleado
+AltaBajaModificacion <|-- Empresa
+Empresa "1" *-- "1..*" Empleado
+Empresa "1" -- "0..*" Recurso
+Empleado <|-- Operador
+Empleado <|-- Tecnico
+Tecnico "1" o-- "1..*" TipoDeArticulo
+Tecnico "1" -- "1..*" SecuenciaDeTareas
+Operador "1" -- "0..*" Reclamo
+Reparacion "1" -- "1..*" SecuenciaDeTareas
+Reparacion "1" -- "1..*" Recurso
+Reparacion "1" -- "1" Reclamo
+TareasDefinidas "1" -- "0..*" TipoDeArticulo
+TipoDeArticulo "1" -- "1..*" Articulo
+SecuenciaDeTareas "0..*" -- "0..*" TareasDefinidas
+
+
+@enduml

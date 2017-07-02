@@ -1,0 +1,19 @@
+Primer tema: me siento muy condicionado por los modelos de bases de datos relacionales al momento de hacer el diagrama de clase, asi que probablemente las cosas que vea en este modelo se asemejaran en algun aspecto u otro a un modelo relacional de base de datos, pero trate de mantenerme en las  directivas del documento que subió al aula para no irme de tema con esto. Asi que, si por ahi ve algo que se asemeje mucho a un  modelo relacional es el hecho de que los modelos de clases siempre los vi de forma teorica y nunca me toco implementar uno. Se que los diagramas de clases tambien representan las necesidades de almacenamiento de informacion que tiene algun cierto escenario pero aun no se si el paso de un modelo de clases a un modelo relacional de tablas es tan transparente como lo pienso.
+
+En primera instancia estoy con dudas de si puedo implementar esto (clase_empleados),
+
+ya que como puede observar aqui si bien la superclase abstracta Empleado esta heredando todos los metodos de la clase AltaBajaModificacion lo cual no obliga a esta clase a implementar los metodos de la clase superior, si va a obligar a sus subclases a que las implementen, en este caso esto permitirá que en el sistema se agreguen Tecnicos y Operadores 
+
+pero la duda aqui surge en la parte (empresa_empleados.png) ya que no estoy seguro de que la clase empresa pueda tener instancias de la clase abstracta, pero lo que me convencio de ponerla de esta manera es que las clases abstractas pueden ser utilizadas como tipo de dato y de esta manera poder tener colecciones de empleados en algun array. Quiero saber si este accionar esta bien de esta manera, o en caso de que haya una mejor forma de representar esto escucho sus sugerencias.
+
+Esto viene a tratar de modelar la parte del enunciado que dice:
+
+"[...] Los reclamos serán reparados por los técnicos de la empresa los cuales deberán estar registrados en el sistema [...]", lo cual indica que existe una entidad Empresa que posee uno o varios Empleados, los cuales tienen una relacion de dependencia, esto indica que si la empresa deja de existir los empleados tampoco existiran.
+
+Consulta 2:
+
+Ademas profesor, estoy con dudas acerca de cuando se da esta situación (consulta_muchos_a_muchos_1) 
+
+lei en los libros que esto se puede solucionar poniendo una clase en medio de de la relación asi (consulta_muchos_a_muchos_2)
+
+En caso de que se pueda, y que esto sea una buena implementacion, podria explicar como se trata con esto en la programación? de seguro mas de uno tendra esta situacion en sus modelos de clase para el integrador.
