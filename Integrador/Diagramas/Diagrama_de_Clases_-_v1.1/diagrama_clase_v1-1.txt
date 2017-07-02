@@ -55,7 +55,7 @@ Tecnico <|-- EmpleadoJornalero
 Tecnico <|-- EmpleadoMensual
 Reclamo "1..*"-"1" Articulo: Sobre >
 TareaARealizar "0..*" - "1" TareaDefinida: Es >
-TareaDefinida "1" -- "0..*" TipoDeArticulo
+TareaDefinida "0..*" -- "1" TipoDeArticulo
 Reclamo "1"--"1..*" TareaARealizar
 TipoDeArticulo "1" -- "1..*" Articulo: Tiene-Asociado <
 TareaARealizar "1" -- "0..*" TiempoInvertido
