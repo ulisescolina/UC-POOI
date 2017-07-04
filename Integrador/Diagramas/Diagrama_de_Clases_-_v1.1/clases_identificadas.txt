@@ -1,0 +1,13 @@
+@startuml clases_identificadas.png
+
+abstract class Tecnico
+class EmpleadoJornalero
+class EmpleadoMensual
+class TipoDeArticulo
+class Articulo
+class SecuenciaDeTarea
+class TareaDefinida
+class Reclamo
+class TiempoInvertido
+
+@enduml

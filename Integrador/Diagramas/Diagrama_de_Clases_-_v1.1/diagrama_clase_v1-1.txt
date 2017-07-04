@@ -1,0 +1,64 @@
+@startuml diagrama_clase_v1-1.png
+
+abstract class Tecnico {
+  - nombres:String
+  - apellidos:String
+  - documentoUnico:String
+}
+
+class EmpleadoJornalero {
+  - tarifaPorHora:double
+}
+
+class EmpleadoMensual {
+  - sueldoMensual:double
+}
+
+class TipoDeArticulo {
+  - id_tipoarticulo:int
+  - codigo:String
+  - nombre:String
+}
+
+class Articulo {
+  - id_articulo:int
+  - nombre:String
+}
+
+class TareaARealizar {
+  - id_tarearealizar:int
+  - b_finalizado:boolean
+}
+
+class TareaDefinida {
+  - id_tareadefinida
+  - codigoUnico:String
+  - nombre:String
+  - descripcion:String
+}
+
+class Reclamo {
+  - numero:int /*Este es el identificador*/
+  - descProblema:String
+  - fechaEntrada:Date
+  - FechaEstimEntrega:Date
+}
+
+class TiempoInvertido {
+  - fecha:Date
+  - horasInvertidas:Time
+}
+
+Tecnico "1..*" -- "0..*" TipoDeArticulo
+Tecnico "1" -- "0..*" TareaARealizar
+Tecnico <|-- EmpleadoJornalero
+Tecnico <|-- EmpleadoMensual
+Reclamo "1..*"-"1" Articulo: Sobre >
+TareaARealizar "0..*" - "1" TareaDefinida: Es >
+TareaDefinida "0..*" -- "1" TipoDeArticulo
+Reclamo "1"--"1..*" TareaARealizar
+TipoDeArticulo "1" -- "1..*" Articulo: Tiene-Asociado <
+TareaARealizar "1" -- "0..*" TiempoInvertido
+
+
+@enduml
