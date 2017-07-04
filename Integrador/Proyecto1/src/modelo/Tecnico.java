@@ -18,7 +18,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tecnicos")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo_empleado")
 public abstract class Tecnico implements Serializable {
     /*========================= Atributos de la clase ========================*/
     @Id
