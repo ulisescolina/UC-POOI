@@ -32,7 +32,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         tlb_principal = new javax.swing.JToolBar();
-        btn_reclamos = new javax.swing.JButton();
+        btnReclamos = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btn_configuraciones = new javax.swing.JButton();
@@ -42,11 +42,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         tlb_principal.setRollover(true);
 
-        btn_reclamos.setText("Reclamos");
-        btn_reclamos.setFocusable(false);
-        btn_reclamos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_reclamos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tlb_principal.add(btn_reclamos);
+        btnReclamos.setText("Reclamos");
+        btnReclamos.setFocusable(false);
+        btnReclamos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReclamos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReclamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReclamosActionPerformed(evt);
+            }
+        });
+        tlb_principal.add(btnReclamos);
 
         jButton1.setText("Articulos");
         jButton1.setFocusable(false);
@@ -65,7 +70,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tlb_principal.add(jButton2);
 
-        btn_configuraciones.setText("Config");
+        btn_configuraciones.setText("Parámetros");
         btn_configuraciones.setFocusable(false);
         btn_configuraciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_configuraciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -93,6 +98,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        getAccessibleContext().setAccessibleDescription("Proyecto integrador para la catedra de Programacion Orientada a Objetos 1 referente a la Gestion de Reclamos");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -112,9 +119,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         va.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnReclamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReclamosActionPerformed
+        VtnReclamosPrincipal vrp = new VtnReclamosPrincipal(this.controlador, this);
+        this.setVisible(false);
+        vrp.setLocationRelativeTo(null);
+        vrp.setResizable(false);
+        vrp.setVisible(true);
+    }//GEN-LAST:event_btnReclamosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReclamos;
     private javax.swing.JButton btn_configuraciones;
-    private javax.swing.JButton btn_reclamos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JToolBar tlb_principal;

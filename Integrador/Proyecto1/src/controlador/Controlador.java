@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import persistencia.Persistencia;
@@ -224,30 +225,161 @@ public class Controlador {
         return this.persistencia.buscarTodosOrdenadosPor(Reclamo.class, Reclamo_.numero);
     }
     
-    public void agregarReclamo() {
-        
+    public void agregarReclamo(String nDescripcionProblema, Date nFechaEstimadaEntrega, Articulo a) {
+        this.persistencia.iniciarTransaccion();
+        try {
+            Reclamo r = new Reclamo(nDescripcionProblema, nFechaEstimadaEntrega, a);
+            a.agregarReclamo(r);
+            this.persistencia.modificar(a);
+            this.persistencia.insertar(r);
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+        }
     }
     
-    public void editarReclamo() {
-        
+    public void editarReclamo(Reclamo r, String nDescripcionProblema, Date nFechaEstimadaEntrega, Articulo a) {
+        if (r != null) {
+            this.persistencia.iniciarTransaccion();
+            try {
+                r.setDescProblema(nDescripcionProblema);
+                if (r.getArticulo() != null) {
+                    Articulo articuloViejo = r.getArticulo();
+                    articuloViejo.quitarReclamo(r);
+                    this.persistencia.modificar(articuloViejo);
+                }
+                a.agregarReclamo(r);
+                r.setArticulo(a);
+                this.persistencia.modificar(a);
+                this.persistencia.modificar(r);
+                this.persistencia.confirmarTransaccion();
+            } catch (Exception e) {
+                this.persistencia.descartarTransaccion();
+            }
+        }
     }
     
-    public void eliminarReclamo() {
-        
+    public int eliminarReclamo(Reclamo r) {
+        if (r.getTareas().isEmpty()) {
+            this.persistencia.iniciarTransaccion();
+            Articulo a = r.getArticulo();
+            a.quitarReclamo(r);
+            r.setArticulo(null);
+            this.persistencia.modificar(a);
+            this.persistencia.eliminar(r);
+            this.persistencia.confirmarTransaccion();
+            return 0;
+        } else {
+            return 1;
+        }
     }
     /*===================== Fin Metodos para Reclamo =========================*/
     
-    
-    
-    
-    
-    
-    
-    
     /*======================= Metodos para Tecnico ===========================*/
+    public List listarTecnicos() {
+        return this.persistencia.buscarTodosOrdenadosPor(Tecnico.class, Tecnico_.apellidos);
+    }
+    
+    public void agregarTecnico(String nNombres, String nApellidos, String nDocumentoUnico, Class<Tecnico> tipo, Double remuneracion) {
+        try {
+            if (tipo != null) {
+                this.persistencia.iniciarTransaccion();
+                if (tipo.getName().toUpperCase() == "EMPLEADOJORNALERO") {
+                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
+                    this.persistencia.insertar(EJ);
+                    this.persistencia.confirmarTransaccion();
+                } else {
+                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
+                    this.persistencia.insertar(EJ);
+                    this.persistencia.confirmarTransaccion();
+                }
+            }
+        }catch (Exception e) {
+            this.persistencia.iniciarTransaccion();
+        }
+    }
+    
+    public void editarTecnico(Tecnico t, String nNombres, String nApellidos, String nDocumentoUnico, Class<Tecnico> tipo, Double remuneracion) {
+        try {
+            if (tipo != null) {
+                this.persistencia.iniciarTransaccion();
+                if (tipo.getName().toUpperCase() == "EMPLEADOJORNALERO") {
+                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
+                    this.persistencia.insertar(EJ);
+                    this.persistencia.confirmarTransaccion();
+                } else {
+                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
+                    this.persistencia.insertar(EJ);
+                    this.persistencia.confirmarTransaccion();
+                }
+            }
+        }catch (Exception e) {
+            this.persistencia.iniciarTransaccion();
+        }
+    } 
+    
+    public void eliminarTecnico(Tecnico t) {
+        
+    }
     /*===================== Fin Metodos para Tecnico =========================*/
     
     /*==================== Metodos para TareaARealizar =======================*/
+    public List listarTareasARealizar() {
+        return this.persistencia.buscarTodosOrdenadosPor(TareaARealizar.class, TareaARealizar_.id_tareaarealizar);
+    }
+    
+    public void agregarTareaARealizar(Reclamo r, TareaDefinida TD, Tecnico T) {
+        this.persistencia.iniciarTransaccion();
+        try {
+            TareaARealizar tar = new TareaARealizar(r, TD,T);
+            r.agregarTarea(tar);
+            this.persistencia.modificar(r);
+            this.persistencia.insertar(tar);
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+        }
+    }
+    
+    public void editarTareaARealizar(Reclamo r ,TareaARealizar TAR, TareaDefinida TD, Tecnico T){
+        if (r != null && TAR != null) {
+            this.persistencia.iniciarTransaccion();
+            try {
+                TAR.setTareaDefinida(TD);
+                TAR.setTecnico(T);
+                if (TAR.getReclamo() != null) {
+                    Reclamo reclamoViejo = TAR.getReclamo();
+                    reclamoViejo.quitarTarea(TAR);
+                    this.persistencia.modificar(reclamoViejo);
+                }
+                r.agregarTarea(TAR);
+                
+                this.persistencia.modificar(TAR);
+                this.persistencia.modificar(r);
+                this.persistencia.confirmarTransaccion();
+            } catch (Exception e) {
+                this.persistencia.descartarTransaccion();
+            }
+        }
+    }
+    
+    public int eliminarTareaARealizar(TareaARealizar TAR){
+        if (TAR.getTiempos().isEmpty()) {
+            if (!TAR.isFinalizado()) {
+                this.persistencia.iniciarTransaccion();
+                Reclamo r = TAR.getReclamo();
+                r.quitarTarea(TAR);
+                TAR.setReclamo(null);
+                this.persistencia.modificar(r);
+                this.persistencia.eliminar(TAR);
+                this.persistencia.confirmarTransaccion();
+                return 0;
+            }
+            return 2; // Una vez finalizada, la tarea ya no puede ser borrada
+        } else {
+            return 1;
+        }    
+    }
     /*================== Fin Metodos para TareaARealizar =====================*/
     
     /*=================== Metodos para TiempoInvertido =======================*/
