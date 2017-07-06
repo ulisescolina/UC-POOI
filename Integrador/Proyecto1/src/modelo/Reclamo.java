@@ -31,9 +31,9 @@ public class Reclamo implements Serializable{
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_reclamos")
     private int numero; /*este sera la clave principal*/
     private String descProblema;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaEntrada;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaEstimEntrega;
     /*====================== Fin Atributos de la clase =======================*/
     
@@ -58,10 +58,11 @@ public class Reclamo implements Serializable{
         this.tareas = new ArrayList<>();
     }
     
-    public Reclamo(String descProblema, Date fechaEntrada, Date fechaEstimEntrega) {
+    public Reclamo(String descProblema, Date fechaEstimEntrega, Articulo nArticulo) {
         this.descProblema = descProblema;
         this.fechaEntrada = new Date();
         this.fechaEstimEntrega = fechaEstimEntrega;
+        this.articulo = nArticulo;
         this.tareas = new ArrayList<>();
     }
 
@@ -91,7 +92,7 @@ public class Reclamo implements Serializable{
     
     @Override
     public String toString(){
-        return this.descProblema;
+        return "("+String.valueOf(this.numero) + ") " + this.descProblema;
     }
     
     public void setArticulo(Articulo nArticulo){
@@ -100,6 +101,10 @@ public class Reclamo implements Serializable{
     
     public Articulo getArticulo(){
         return this.articulo;
+    }
+    
+    public List getTareas() {
+        return this.tareas;
     }
     
     public void agregarTarea(TareaARealizar nTAR){

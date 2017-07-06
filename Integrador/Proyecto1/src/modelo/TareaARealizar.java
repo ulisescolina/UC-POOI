@@ -62,9 +62,10 @@ public class TareaARealizar implements Serializable{
         this.tiempos = new ArrayList<>();
     }
     
-    public TareaARealizar(Reclamo r, TareaDefinida td) {
+    public TareaARealizar(Reclamo r, TareaDefinida td, Tecnico nTecnico) {
         this.finalizado = false;
         this.tiempos = new ArrayList<>();
+        this.tecnico = nTecnico;
         this.tareaDefinida = td;
         this.reclamo = r;
     }
@@ -87,15 +88,45 @@ public class TareaARealizar implements Serializable{
     
     @Override
     public String toString() {
-        return this.tareaDefinida.getNombre();
+        String tarea = "";
+        tarea = "Tarea: "+this.tareaDefinida.getNombre();
+        if (this.tecnico != null) {
+            tarea += " - Tecnico Asignado: "+tecnico.toString();
+        }
+        if (this.isFinalizado()){
+            tarea += " - Finalizada";
+        } else {
+            tarea += " - Pendiente";
+        }
+        return tarea;
+    }
+    
+    public Reclamo getReclamo() {
+        return this.reclamo;
     }
     
     public void setReclamo(Reclamo r){
         this.reclamo = r;
     }
     
+    public TareaDefinida getTareaDefinida() {
+        return this.tareaDefinida;
+    }
+    
     public void setTareaDefinida(TareaDefinida td){
         this.tareaDefinida = td;
+    }
+    
+    public void setTecnico(Tecnico t){
+        this.tecnico = t;
+    }
+    
+    public Tecnico getTecnico() {
+        return this.tecnico;
+    }
+    
+    public List getTiempos() {
+        return this.tiempos;
     }
     
     public void agregarTiempoInvertido(TiempoInvertido TI){
