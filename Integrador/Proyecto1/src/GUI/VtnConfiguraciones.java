@@ -342,6 +342,14 @@ public class VtnConfiguraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarTareaDefinidaActionPerformed
 
     private void btnGuardarTipoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTipoArticuloActionPerformed
+        if (this.txtCodigoTipoArticulo.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer un código al tipo de articulo obligatoriamente.", "Atención");
+            return;
+        }
+        if (this.txtNombreTipoArticulo.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer un nombre al tipo de articulo obligatoriamente.", "Atención");
+            return;
+        }
         if (!this.lstTiposArticulos.isSelectionEmpty()) {
             TipoDeArticulo TDA = (TipoDeArticulo) this.lstTiposArticulos.getSelectedValue();
             this.controlador.editarTipoDeArticulo(TDA,this.txtCodigoTipoArticulo.getText().trim(), this.txtNombreTipoArticulo.getText().trim());
@@ -387,10 +395,26 @@ public class VtnConfiguraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarTipoArticuloActionPerformed
 
     private void btnGuardarTareaDefinidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTareaDefinidaActionPerformed
+        if (this.txtCodigoTareaDefinida.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer un código a la tarea definida obligatoriamente.", "Atención");
+            return;
+        }
+        
+        if (this.txtDescripcionTareaDefinida.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer una descripción a la tarea definida obligatoriamente.", "Atención");
+            return;
+        }
+        
+        if (this.txtNombreTareaDefinida.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer un nombre a la tarea definidaobligatoriamente.", "Atención");
+            return;
+        }
+        
         if (this.cmbTipoArticuloAsociado.getSelectedItem() == null) {
             this.controlador.mensaje("MA", "Debe seleccionar un tipo de articulo\npara ser asociado a la tarea definida que esta creando", "Advertencia");
             return;
         }
+        
         if (!this.lstTareasDefinidas.isSelectionEmpty()) {
             TareaDefinida TD = (TareaDefinida) this.lstTareasDefinidas.getSelectedValue();
             String CodigoTareaDefinida = this.txtCodigoTareaDefinida.getText().trim();
@@ -424,14 +448,27 @@ public class VtnConfiguraciones extends javax.swing.JFrame {
             this.txtCodigoTareaDefinida.setText(TD.getCodigoUnico());
             this.txtNombreTareaDefinida.setText(TD.getNombre());
             this.txtDescripcionTareaDefinida.setText(TD.getDescripcion());
-            if (TD.getTipoArticuloAsociado() != null) {
+            
+            /*
+            * Issue asociado: https://github.com/ulisescolina/UC-POOI/issues/9 
+            * 
+            * Pregunto si la tarea definida tiene alguna tarea a realizar asociada
+            * de este modo podre editar las tareas definidas que no esten siendo utilizadas
+            * sin perder la capacidad de editar las tareas definidas que no esten siendo
+            * referenciadas
+            */
+            if (!TD.getTareas().isEmpty()) {
                 this.cmbTipoArticuloAsociado.setSelectedItem(TD.getTipoArticuloAsociado());
+                this.cmbTipoArticuloAsociado.setEnabled(false);
             } else {
-                this.cmbTipoArticuloAsociado.setSelectedItem(null);
+                this.cmbTipoArticuloAsociado.setSelectedItem(TD.getTipoArticuloAsociado());
+                this.cmbTipoArticuloAsociado.setEnabled(true);
             }
         } else {
             // Desactivo el boton para permitir la eliminacion
             this.btnEliminarTipoArticulo.setEnabled(false);
+            // Activo el combo
+            this.cmbTipoArticuloAsociado.setEnabled(true);
             
         }
     }//GEN-LAST:event_lstTareasDefinidasValueChanged

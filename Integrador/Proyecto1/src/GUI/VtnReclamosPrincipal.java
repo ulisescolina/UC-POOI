@@ -169,8 +169,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(SpnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(SpnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditarDetalleReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -229,6 +228,10 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
     private void btnGuardarReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReclamoActionPerformed
             if (this.cmbArticulo.getSelectedItem() == null) {
                 this.controlador.mensaje("MA", "Es OBLIGATORIO que defina el articulo para el cual esta Creando/Editando el Reclamo", "Advertencia");
+                return;
+            }
+            if (this.txtDescripcion.getText() == null) {
+                this.controlador.mensaje("MA", "Debe establecer una descripcion al reclamo obligatoriamente.", "Atención");
                 return;
             }
             if (!this.lstReclamos.isSelectionEmpty()) {
