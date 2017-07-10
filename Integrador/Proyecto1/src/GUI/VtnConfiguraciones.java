@@ -424,14 +424,27 @@ public class VtnConfiguraciones extends javax.swing.JFrame {
             this.txtCodigoTareaDefinida.setText(TD.getCodigoUnico());
             this.txtNombreTareaDefinida.setText(TD.getNombre());
             this.txtDescripcionTareaDefinida.setText(TD.getDescripcion());
-            if (TD.getTipoArticuloAsociado() != null) {
+            
+            /*
+            * Issue asociado: https://github.com/ulisescolina/UC-POOI/issues/9 
+            * 
+            * Pregunto si la tarea definida tiene alguna tarea a realizar asociada
+            * de este modo podre editar las tareas definidas que no esten siendo utilizadas
+            * sin perder la capacidad de editar las tareas definidas que no esten siendo
+            * referenciadas
+            */
+            if (!TD.getTareas().isEmpty()) {
                 this.cmbTipoArticuloAsociado.setSelectedItem(TD.getTipoArticuloAsociado());
+                this.cmbTipoArticuloAsociado.setEnabled(false);
             } else {
-                this.cmbTipoArticuloAsociado.setSelectedItem(null);
+                this.cmbTipoArticuloAsociado.setSelectedItem(TD.getTipoArticuloAsociado());
+                this.cmbTipoArticuloAsociado.setEnabled(true);
             }
         } else {
             // Desactivo el boton para permitir la eliminacion
             this.btnEliminarTipoArticulo.setEnabled(false);
+            // Activo el combo
+            this.cmbTipoArticuloAsociado.setEnabled(true);
             
         }
     }//GEN-LAST:event_lstTareasDefinidasValueChanged
