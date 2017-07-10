@@ -25,9 +25,10 @@ public abstract class Tecnico implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id_tecnico;
-    private final String nombres;
-    private final String apellidos;
-    private final String documentoUnico;
+    protected String nombres;
+    protected String apellidos;
+    protected String documentoUnico;
+    protected boolean activo;
     /*====================== Fin Atributos de la clase =======================*/
     
     /*==================== Atributos para las relaciones =====================*/
@@ -35,13 +36,13 @@ public abstract class Tecnico implements Serializable {
         Un tecnico conoce la lista de articulos en los que puede trabajar
     */
     @ManyToMany
-    private Set<TipoDeArticulo> articulosEspecializados;
+    protected Set<TipoDeArticulo> articulosEspecializados;
     
     /*
         Un tecnico conoce la lista de tareas que tiene que realizar
     */
     @OneToMany(mappedBy="tecnico")
-    private List<TareaARealizar> tareas;
+    protected List<TareaARealizar> tareas;
     
     /*================== Fin Atributos para las relaciones ===================*/
     
@@ -49,6 +50,7 @@ public abstract class Tecnico implements Serializable {
         this.nombres = "";
         this.apellidos = "";
         this.documentoUnico = "";
+        this.activo = true;
         this.articulosEspecializados = new HashSet();
         this.tareas = new ArrayList<>();
     }
@@ -57,7 +59,21 @@ public abstract class Tecnico implements Serializable {
         this.nombres = nNombres;
         this.apellidos = nApellidos;
         this.documentoUnico = nDocumentoUnico;
+        this.activo = true;
         this.articulosEspecializados = new HashSet();
         this.tareas = new ArrayList<>();
     }
+    
+    protected abstract void bajaTecnico();
+    
+    protected abstract void agregarArticuloEspecializado(TipoDeArticulo TDA);
+    protected abstract void quitarArticuloEspecializado(TipoDeArticulo TDA);
+    protected abstract Set getArticulosEspecializados();
+    
+    protected abstract void agregarTarea(TareaARealizar TAR);
+    protected abstract void quitarTarea(TareaARealizar TAR);
+    protected abstract List getTareas();
+    
+    @Override
+    public abstract String toString();
 }

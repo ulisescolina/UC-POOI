@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  */
 public class VtnReclamosDetalle extends javax.swing.JFrame {
 
-     private final Controlador controlador;
+    private final Controlador controlador;
     private final JFrame previo;
     private final Reclamo reclamo;
 
@@ -230,19 +230,24 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnGuardarTareaARealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTareaARealizarActionPerformed
+        if (this.cmbTecnicoTareaARealizar.getSelectedItem() == null || this.cmbTareaARealizar.getSelectedItem() == null) {
+            this.controlador.mensaje("MA", "Debe seleccionar obligatoriamente una Tarea Definida y un Empleado", "Atención");
+            return;
+        }
         if (!this.lstDetalleReclamo.isSelectionEmpty()) {
             TareaARealizar TAR = (TareaARealizar) this.lstDetalleReclamo.getSelectedValue();
             TareaDefinida t = (TareaDefinida) this.cmbTareaARealizar.getSelectedItem();
-            /*Falta el tecnico que esta en desarrollo*/
+            Object e = (Object) this.cmbTecnicoTareaARealizar.getSelectedItem();
             if (this.chkEstadoTareaARealizar.isSelected()) {
                 TAR.setFinalizado(true);
             } else {
                 TAR.setFinalizado(false);
             }
-            this.controlador.editarTareaARealizar(reclamo, TAR, t, null);
+            this.controlador.editarTareaARealizar(reclamo, TAR, t, e);
         } else {
             TareaDefinida t = (TareaDefinida) this.cmbTareaARealizar.getSelectedItem();
-            this.controlador.agregarTareaARealizar(reclamo, t, null);
+            Object e = (Object) this.cmbTecnicoTareaARealizar.getSelectedItem();
+            this.controlador.agregarTareaARealizar(reclamo, t, e);
         }
         reiniciarReclamosDetalle();
     }//GEN-LAST:event_btnGuardarTareaARealizarActionPerformed
@@ -290,10 +295,16 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         this.lblArticulo.setText(reclamo.getArticulo().toString());
         this.lblFechaEntrada.setText(f.format(reclamo.getFechaEntrada()));
         this.lblDescripcion.setText(reclamo.getDescProblema());
-        this.lstDetalleReclamo.setListData(this.controlador.listarTareasARealizar().toArray());
-        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(this.reclamo.getArticulo().getTipoDeArticulo().getTareasDefinidasAsociadas().toArray());
-        this.cmbTareaARealizar.setModel(modeloCombo);
+        this.lstDetalleReclamo.setListData(reclamo.getTareas().toArray());
+        /*Combo tareas para el tipo de articulo*/
+        DefaultComboBoxModel mCmbTipoArticulo = new DefaultComboBoxModel(this.reclamo.getArticulo().getTipoDeArticulo().getTareasDefinidasAsociadas().toArray());
+        this.cmbTareaARealizar.setModel(mCmbTipoArticulo);
         this.cmbTareaARealizar.setSelectedIndex(-1);
+        
+        /*combo tecnicos con especialidad en ese tipo de articulo*/
+        DefaultComboBoxModel mCmbTecnicosCapacitados = new DefaultComboBoxModel(this.reclamo.getArticulo().getTipoDeArticulo().getTecnicos().toArray());
+        this.cmbTecnicoTareaARealizar.setModel(mCmbTecnicosCapacitados);
+        this.cmbTecnicoTareaARealizar.setSelectedIndex(-1);
         this.chkEstadoTareaARealizar.setSelected(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

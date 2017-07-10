@@ -126,5 +126,25 @@ public class TipoDeArticulo implements Serializable{
         return tecnicos;
     }
     
+    public void agregarTecnico(Object t) {
+        if (t instanceof EmpleadoJornalero) {
+            EmpleadoJornalero EJ = (EmpleadoJornalero) t;
+            this.tecnicos.add(EJ);
+        } else if (t instanceof EmpleadoMensual) {
+            EmpleadoMensual EM = (EmpleadoMensual) t;
+            this.tecnicos.add(EM);            
+        }
+    }
+    
+    public void quitarTecnico(Object t) {
+        if (t instanceof EmpleadoJornalero) {
+            EmpleadoJornalero EJ = (EmpleadoJornalero) t;
+            this.tecnicos.remove(EJ);
+        } else if (t instanceof EmpleadoMensual) {
+            EmpleadoMensual EM = (EmpleadoMensual) t;
+            this.tecnicos.remove(EM);
+        }
+    }
+    
     
 }

@@ -33,9 +33,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         tlb_principal = new javax.swing.JToolBar();
         btnReclamos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        btn_configuraciones = new javax.swing.JButton();
+        btnArticulos = new javax.swing.JButton();
+        btnTecnicos = new javax.swing.JButton();
+        btnConfiguraciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestión de Reclamos");
@@ -53,49 +53,48 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         tlb_principal.add(btnReclamos);
 
-        jButton1.setText("Articulos");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnArticulos.setText("Articulos");
+        btnArticulos.setFocusable(false);
+        btnArticulos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnArticulos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnArticulos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnArticulosActionPerformed(evt);
             }
         });
-        tlb_principal.add(jButton1);
+        tlb_principal.add(btnArticulos);
 
-        jButton2.setText("Tecnicos");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tlb_principal.add(jButton2);
-
-        btn_configuraciones.setText("Parámetros");
-        btn_configuraciones.setFocusable(false);
-        btn_configuraciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_configuraciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_configuraciones.addActionListener(new java.awt.event.ActionListener() {
+        btnTecnicos.setText("Tecnicos");
+        btnTecnicos.setFocusable(false);
+        btnTecnicos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTecnicos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTecnicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_configuracionesActionPerformed(evt);
+                btnTecnicosActionPerformed(evt);
             }
         });
-        tlb_principal.add(btn_configuraciones);
+        tlb_principal.add(btnTecnicos);
+
+        btnConfiguraciones.setText("Parámetros");
+        btnConfiguraciones.setFocusable(false);
+        btnConfiguraciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConfiguraciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConfiguraciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfiguracionesActionPerformed(evt);
+            }
+        });
+        tlb_principal.add(btnConfiguraciones);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tlb_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(tlb_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tlb_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(tlb_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         getAccessibleContext().setAccessibleDescription("Proyecto integrador para la catedra de Programacion Orientada a Objetos 1 referente a la Gestion de Reclamos");
@@ -103,21 +102,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_configuracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_configuracionesActionPerformed
+    private void btnConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionesActionPerformed
         VtnConfiguraciones vc = new VtnConfiguraciones(this.controlador, this);
         this.setVisible(false);
         vc.setLocationRelativeTo(null);
         vc.setResizable(false);
         vc.setVisible(true);
-    }//GEN-LAST:event_btn_configuracionesActionPerformed
+    }//GEN-LAST:event_btnConfiguracionesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArticulosActionPerformed
         VtnArticulos va = new VtnArticulos(this.controlador, this);
         this.setVisible(false);
         va.setLocationRelativeTo(null);
         va.setResizable(false);
         va.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnArticulosActionPerformed
 
     private void btnReclamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReclamosActionPerformed
         VtnReclamosPrincipal vrp = new VtnReclamosPrincipal(this.controlador, this);
@@ -127,11 +126,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vrp.setVisible(true);
     }//GEN-LAST:event_btnReclamosActionPerformed
 
+    private void btnTecnicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicosActionPerformed
+        VtnTecnicosPrincipal vtp = new VtnTecnicosPrincipal(this.controlador, this);
+        this.setVisible(false);
+        vtp.setLocationRelativeTo(null);
+        vtp.setResizable(false);
+        vtp.setVisible(true);
+    }//GEN-LAST:event_btnTecnicosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnArticulos;
+    private javax.swing.JButton btnConfiguraciones;
     private javax.swing.JButton btnReclamos;
-    private javax.swing.JButton btn_configuraciones;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnTecnicos;
     private javax.swing.JToolBar tlb_principal;
     // End of variables declaration//GEN-END:variables
 }

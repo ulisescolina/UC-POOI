@@ -79,4 +79,16 @@ public class Persistencia {
         consulta.orderBy(cb.asc(inicio.get(orden)));
         return em.createQuery(consulta).getResultList();
     }
+    
+    /*Metodos para el Tecnico*/
+    /*
+    * Listar a los tecnicos que no esten dados de baja de la base de datos
+    */
+    public <T extends Object> List<T> buscarTecnicosActivos() {
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<modelo.Tecnico> consulta = cb.createQuery(modelo.Tecnico.class);
+        Root<modelo.Tecnico> c = consulta.from(modelo.Tecnico.class);
+        consulta.where(cb.equal(c.get("activo"), true));
+        return (List<T>) em.createQuery(consulta).getResultList();
+    }
 }
