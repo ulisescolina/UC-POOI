@@ -173,7 +173,7 @@ public class Controlador {
     public void agregarArticulo(String nNombre, TipoDeArticulo TDA){
         this.persistencia.iniciarTransaccion();
         try {
-            Articulo a = new Articulo(nNombre, TDA);
+            Articulo a = new Articulo(nNombre.toUpperCase(), TDA);
             TDA.agregarArticulo(a);
             this.persistencia.modificar(TDA);
             this.persistencia.insertar(a);
@@ -187,7 +187,7 @@ public class Controlador {
         if (a != null) {
             this.persistencia.iniciarTransaccion();
             try {
-                a.setNombre(nNombre);
+                a.setNombre(nNombre.toUpperCase());
                 if (a.getTipoDeArticulo() != null) {
                     TipoDeArticulo TipoArticuloViejo = a.getTipoDeArticulo();
                     TipoArticuloViejo.eliminarArticulo(a);
@@ -228,7 +228,7 @@ public class Controlador {
     public void agregarReclamo(String nDescripcionProblema, Date nFechaEstimadaEntrega, Articulo a) {
         this.persistencia.iniciarTransaccion();
         try {
-            Reclamo r = new Reclamo(nDescripcionProblema, nFechaEstimadaEntrega, a);
+            Reclamo r = new Reclamo(nDescripcionProblema.toUpperCase(), nFechaEstimadaEntrega, a);
             a.agregarReclamo(r);
             this.persistencia.modificar(a);
             this.persistencia.insertar(r);
@@ -242,7 +242,7 @@ public class Controlador {
         if (r != null) {
             this.persistencia.iniciarTransaccion();
             try {
-                r.setDescProblema(nDescripcionProblema);
+                r.setDescProblema(nDescripcionProblema.toUpperCase());
                 if (r.getArticulo() != null) {
                     Articulo articuloViejo = r.getArticulo();
                     articuloViejo.quitarReclamo(r);
@@ -270,57 +270,150 @@ public class Controlador {
             this.persistencia.confirmarTransaccion();
             return 0;
         } else {
+            this.persistencia.descartarTransaccion();
             return 1;
         }
     }
     /*===================== Fin Metodos para Reclamo =========================*/
     
     /*======================= Metodos para Tecnico ===========================*/
+    /**
+     * Lista unicamente los tecnicos que se encuentran activos en el sistema
+     * 
+    */
     public List listarTecnicos() {
-        return this.persistencia.buscarTodosOrdenadosPor(Tecnico.class, Tecnico_.apellidos);
+        return this.persistencia.buscarTecnicosActivos();
     }
     
-    public void agregarTecnico(String nNombres, String nApellidos, String nDocumentoUnico, Class<Tecnico> tipo, Double remuneracion) {
+    public void agregarTecnico(String nNombres, String nApellidos, String nDocumentoUnico, String tipo, Double remuneracion) {
         try {
             if (tipo != null) {
                 this.persistencia.iniciarTransaccion();
-                if (tipo.getName().toUpperCase() == "EMPLEADOJORNALERO") {
-                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
+                if ("EMPLEADO JORNALERO".equals(tipo.toUpperCase())) {
+                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres.toUpperCase(), nApellidos.toUpperCase(), nDocumentoUnico.toUpperCase(), remuneracion);
                     this.persistencia.insertar(EJ);
                     this.persistencia.confirmarTransaccion();
                 } else {
-                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
-                    this.persistencia.insertar(EJ);
+                    EmpleadoMensual EM = new EmpleadoMensual(nNombres.toUpperCase(), nApellidos.toUpperCase(), nDocumentoUnico.toUpperCase(), remuneracion);
+                    this.persistencia.insertar(EM);
                     this.persistencia.confirmarTransaccion();
                 }
             }
         }catch (Exception e) {
-            this.persistencia.iniciarTransaccion();
+            this.persistencia.descartarTransaccion();
         }
     }
     
-    public void editarTecnico(Tecnico t, String nNombres, String nApellidos, String nDocumentoUnico, Class<Tecnico> tipo, Double remuneracion) {
+    public void editarTecnico(Object t, String nNombres, String nApellidos, String nDocumentoUnico, String tipo, Double remuneracion) {
         try {
             if (tipo != null) {
+                
                 this.persistencia.iniciarTransaccion();
-                if (tipo.getName().toUpperCase() == "EMPLEADOJORNALERO") {
-                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
-                    this.persistencia.insertar(EJ);
+                if (t instanceof EmpleadoJornalero) {
+                    EmpleadoJornalero EJ = (EmpleadoJornalero) t;
+                    EJ.setNombre(nNombres.toUpperCase());
+                    EJ.setApellidos(nApellidos.toUpperCase());
+                    EJ.setDocumentoUnico(nDocumentoUnico.toUpperCase());
+                    EJ.setTarifaPorHora(remuneracion);
+                    if ("EMPLEADO MENSUAL".equals(tipo.toUpperCase())) {
+                        EJ.bajaTecnico();
+                        EmpleadoMensual EM = new EmpleadoMensual(nNombres.toUpperCase(), nApellidos.toUpperCase(), nDocumentoUnico.toUpperCase(), remuneracion);
+                        this.persistencia.insertar(EM);
+                    }
+                    this.persistencia.modificar(EJ);
                     this.persistencia.confirmarTransaccion();
-                } else {
-                    EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres, nApellidos, nDocumentoUnico, remuneracion);
-                    this.persistencia.insertar(EJ);
+                } else if (t instanceof EmpleadoMensual) {
+                    EmpleadoMensual EM = (EmpleadoMensual) t;
+                    EM.setNombre(nNombres.toUpperCase());
+                    EM.setApellidos(nApellidos.toUpperCase());
+                    EM.setDocumentoUnico(nDocumentoUnico.toUpperCase());
+                    EM.setSueldoMensual(remuneracion);
+                    if ("EMPLEADO JORNALERO".equals(tipo.toUpperCase())) {
+                        EM.bajaTecnico();
+                        EmpleadoJornalero EJ = new EmpleadoJornalero(nNombres.toUpperCase(), nApellidos.toUpperCase(), nDocumentoUnico.toUpperCase(), remuneracion);
+                        this.persistencia.insertar(EJ);
+                    }
+                    this.persistencia.modificar(EM);
                     this.persistencia.confirmarTransaccion();
                 }
             }
         }catch (Exception e) {
-            this.persistencia.iniciarTransaccion();
+            this.persistencia.descartarTransaccion();
         }
     } 
     
-    public void eliminarTecnico(Tecnico t) {
+    public int eliminarTecnico(Object t) {
+        if (t instanceof EmpleadoJornalero) {
+            EmpleadoJornalero EJ = (EmpleadoJornalero) t;
+            if (EJ.getTareas().isEmpty() && EJ.getArticulosEspecializados().isEmpty()) {
+                this.persistencia.iniciarTransaccion();
+                this.persistencia.eliminar(EJ);
+                this.persistencia.confirmarTransaccion();
+                return 0;
+            } else {
+                this.persistencia.descartarTransaccion();
+                return 1;
+            }
+            
+        }
         
+        if (t instanceof EmpleadoMensual) {
+            EmpleadoMensual EM = (EmpleadoMensual) t;
+            if (EM.getArticulosEspecializados().isEmpty() && EM.getTareas().isEmpty()) {
+                this.persistencia.iniciarTransaccion();
+                this.persistencia.eliminar(EM);
+                this.persistencia.confirmarTransaccion();
+                return 0;
+            } else {
+                this.persistencia.descartarTransaccion();
+                return 1;
+            }
+        }
+        
+        return 1;
     }
+    
+    public void agregarArticuloEspecializado(Object t, TipoDeArticulo TA) {
+        this.persistencia.iniciarTransaccion();
+        if (t instanceof EmpleadoJornalero) {
+            EmpleadoJornalero EJ = (EmpleadoJornalero) t;
+            EJ.agregarArticuloEspecializado(TA);
+            TA.agregarTecnico(t);
+            this.persistencia.modificar(TA);
+            this.persistencia.modificar(EJ);
+            this.persistencia.confirmarTransaccion();
+        } else if (t instanceof EmpleadoMensual) {
+            EmpleadoMensual EM = (EmpleadoMensual) t;
+            EM.agregarArticuloEspecializado(TA);
+            TA.agregarTecnico(t);
+            this.persistencia.modificar(TA);
+            this.persistencia.modificar(EM);
+            this.persistencia.confirmarTransaccion();
+        }
+    }
+    
+    public int quitarArticuloEspecializado(Object t, TipoDeArticulo TA){
+        this.persistencia.iniciarTransaccion();
+        if (t instanceof EmpleadoJornalero) {
+            EmpleadoJornalero EJ = (EmpleadoJornalero) t;
+            EJ.quitarArticuloEspecializado(TA);
+            TA.quitarTecnico(t);
+            this.persistencia.modificar(TA);
+            this.persistencia.modificar(EJ);
+            this.persistencia.confirmarTransaccion();
+            return 0;
+        } else if (t instanceof EmpleadoMensual) {
+            EmpleadoMensual EM = (EmpleadoMensual) t;
+            EM.quitarArticuloEspecializado(TA);
+            TA.quitarTecnico(t);
+            this.persistencia.modificar(TA);
+            this.persistencia.modificar(EM);
+            this.persistencia.confirmarTransaccion();
+            return 0;
+        } else {
+            return 1;
+        }
+    } 
     /*===================== Fin Metodos para Tecnico =========================*/
     
     /*==================== Metodos para TareaARealizar =======================*/
@@ -328,25 +421,40 @@ public class Controlador {
         return this.persistencia.buscarTodosOrdenadosPor(TareaARealizar.class, TareaARealizar_.id_tareaarealizar);
     }
     
-    public void agregarTareaARealizar(Reclamo r, TareaDefinida TD, Tecnico T) {
+    public void agregarTareaARealizar(Reclamo r, TareaDefinida TD, Object T) {
         this.persistencia.iniciarTransaccion();
         try {
-            TareaARealizar tar = new TareaARealizar(r, TD,T);
-            r.agregarTarea(tar);
-            this.persistencia.modificar(r);
-            this.persistencia.insertar(tar);
+            if (T instanceof EmpleadoJornalero) {
+                EmpleadoJornalero EJ = (EmpleadoJornalero) T;
+                TareaARealizar tar = new TareaARealizar(r, TD, EJ);
+                r.agregarTarea(tar);
+                this.persistencia.modificar(r);
+                this.persistencia.insertar(tar);
+            } else if (T instanceof EmpleadoMensual) {
+                EmpleadoMensual EM = (EmpleadoMensual) T;
+                TareaARealizar tar = new TareaARealizar(r, TD, EM);
+                r.agregarTarea(tar);
+                this.persistencia.modificar(r);
+                this.persistencia.insertar(tar);
+            }
             this.persistencia.confirmarTransaccion();
         } catch (Exception e) {
             this.persistencia.descartarTransaccion();
         }
     }
     
-    public void editarTareaARealizar(Reclamo r ,TareaARealizar TAR, TareaDefinida TD, Tecnico T){
+    public void editarTareaARealizar(Reclamo r ,TareaARealizar TAR, TareaDefinida TD, Object T){
         if (r != null && TAR != null) {
             this.persistencia.iniciarTransaccion();
             try {
                 TAR.setTareaDefinida(TD);
-                TAR.setTecnico(T);
+                if (T instanceof EmpleadoJornalero) {
+                    EmpleadoJornalero EJ = (EmpleadoJornalero) T;
+                    TAR.setTecnico(EJ);
+                } else if (T instanceof EmpleadoMensual) {
+                    EmpleadoMensual EM = (EmpleadoMensual) T;
+                    TAR.setTecnico(EM);
+                }
                 if (TAR.getReclamo() != null) {
                     Reclamo reclamoViejo = TAR.getReclamo();
                     reclamoViejo.quitarTarea(TAR);
@@ -383,11 +491,44 @@ public class Controlador {
     /*================== Fin Metodos para TareaARealizar =====================*/
     
     /*=================== Metodos para TiempoInvertido =======================*/
+    public List listarTiemposInvertidos(TareaARealizar tar) {
+        return tar.getTiempos();
+    }
+    
+    public void agregarTiempoInvertido(TareaARealizar tar, double h, Date fecha) {
+        this.persistencia.iniciarTransaccion();
+        try {
+            TiempoInvertido ti = new TiempoInvertido(tar, h, fecha);
+            tar.agregarTiempoInvertido(ti);
+            this.persistencia.modificar(tar);
+            this.persistencia.insertar(ti);
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+        }   
+    }
+    
+    /*
+    * Suponemos que el tiempo invertido no puede ser modificado hecho por el cual
+    * no tenemos metodo para la modificación
+    */
+    
+    public int eliminarTiempoInvertido (TiempoInvertido ti) {
+        this.persistencia.iniciarTransaccion();
+        if (ti != null) {
+            TareaARealizar tarea = ti.getTarea();
+            tarea.quitarTiempoInvertido(ti);
+            ti.setTarea(null);
+            this.persistencia.modificar(tarea);
+            this.persistencia.eliminar(ti);
+            this.persistencia.confirmarTransaccion();
+            return 0;
+        }else {
+            return 1;
+        }
+        
+    }
     /*================= Fin Metodos para TiempoInvertido =====================*/
-    
-    
-    /*======================= Metodos para Agregar ===========================*/
-    /*===================== Fin Metodos para Agregar =========================*/
     
     
 }
