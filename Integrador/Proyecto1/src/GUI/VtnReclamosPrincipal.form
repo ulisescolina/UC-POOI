@@ -72,7 +72,6 @@
                               <Component id="jLabel3" min="-2" pref="131" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="SpnFecha" min="-2" pref="157" max="-2" attributes="0"/>
-                              <EmptySpace min="27" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

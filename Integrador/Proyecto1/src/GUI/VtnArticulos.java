@@ -144,9 +144,15 @@ public class VtnArticulos extends javax.swing.JFrame {
 
     private void btnGuardarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarArticuloActionPerformed
         if (this.cmbTipoArticulo.getSelectedItem() == null) {
-            this.controlador.mensaje("MA", "Debe seleccionar un tipo de articulo obligatoriamente.\n\nEn caso de no contar con articulos cargados dirijase a:\n\n\tConfiguracion->Pestaña Tipo de Articulo\n\ny proceda con la carga del tipo que necesite", "Advertencia");
+            this.controlador.mensaje("MA", "Debe seleccionar un tipo de articulo obligatoriamente.\n\nEn caso de no contar con articulos cargados dirijase a:\n\n\tConfiguracion->Pestaña Tipo de Articulo\n\ny proceda con la carga del tipo que necesite", "Atención");
             return;
         }
+        
+        if (this.txtNombreArticulo.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer el nombre del Articulo obligatoriamente.", "Atención");
+            return;
+        }
+        
         if (!this.lstArticulos.isSelectionEmpty()) {
             Articulo a = (Articulo) this.lstArticulos.getSelectedValue();
             String nNombre = this.txtNombreArticulo.getText();

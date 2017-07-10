@@ -217,27 +217,47 @@ public class VtnTecnicosPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoTecnicoItemStateChanged
 
     private void btnGuardarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTecnicoActionPerformed
+        if (this.txtNombresTecnico.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer el/los nombre/s del empleado obligatoriamente.", "Atención");
+            return;
+        }
+        
+        if (this.txtApellidosTecnico.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer el/los apellido/s del empleado obligatoriamente.", "Atención");
+            return;
+        }
+        
+        if (this.txtDU.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer el documento único del empleado obligatoriamente.", "Atención");
+            return;
+        }
+        
+        if (this.txtRemuneracion.getText() == null) {
+            this.controlador.mensaje("MA", "Debe establecer el valor de la remuneración obligatoriamente.", "Atención");
+            return;
+        }
+        
         if (this.cmbTipoTecnico.getSelectedItem() == null) {
                 this.controlador.mensaje("MA", "Es OBLIGATORIO que defina el Tipo de Técnico que está Creando/Editando", "Advertencia");
                 return;
-            }
-            if (!this.lstEmpleados.isSelectionEmpty()) {
-                Object ej = (Object) this.lstEmpleados.getSelectedValue();
-                String nNombres = this.txtNombresTecnico.getText();
-                String nApellidos = this.txtApellidosTecnico.getText();
-                String nDU = this.txtDU.getText();
-                Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
-                String TT = this.cmbTipoTecnico.getSelectedItem().toString();
-                this.controlador.editarTecnico(ej, nNombres, nApellidos, nDU, TT, nRemuneracion);
-            } else {
-                String nNombres = this.txtNombresTecnico.getText();
-                String nApellidos = this.txtApellidosTecnico.getText();
-                String nDU = this.txtDU.getText();
-                Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
-                String TT = this.cmbTipoTecnico.getSelectedItem().toString();
-                this.controlador.agregarTecnico(nNombres, nApellidos, nDU, TT, nRemuneracion);
-            }
-            reiniciarTecnicosPrincipal();
+        }
+        if (!this.lstEmpleados.isSelectionEmpty()) {
+            Object ej = (Object) this.lstEmpleados.getSelectedValue();
+            String nNombres = this.txtNombresTecnico.getText();
+            String nApellidos = this.txtApellidosTecnico.getText();
+            String nDU = this.txtDU.getText();
+            Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
+            String TT = this.cmbTipoTecnico.getSelectedItem().toString();
+            this.controlador.editarTecnico(ej, nNombres, nApellidos, nDU, TT, nRemuneracion);
+        } else {
+            String nNombres = this.txtNombresTecnico.getText();
+            String nApellidos = this.txtApellidosTecnico.getText();
+            String nDU = this.txtDU.getText();
+            Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
+            String TT = this.cmbTipoTecnico.getSelectedItem().toString();
+            this.controlador.agregarTecnico(nNombres, nApellidos, nDU, TT, nRemuneracion);
+        }
+        reiniciarTecnicosPrincipal();
     }//GEN-LAST:event_btnGuardarTecnicoActionPerformed
 
     private void lstEmpleadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstEmpleadosValueChanged

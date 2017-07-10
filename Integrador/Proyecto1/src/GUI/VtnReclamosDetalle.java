@@ -58,11 +58,9 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         lstDetalleReclamo = new javax.swing.JList();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cmbTareaARealizar = new javax.swing.JComboBox<>();
         cmbTecnicoTareaARealizar = new javax.swing.JComboBox<>();
-        chkEstadoTareaARealizar = new javax.swing.JCheckBox();
         btnGuardarTareaARealizar = new javax.swing.JButton();
         btnEliminarTareaARealizar = new javax.swing.JButton();
         btnNuevoTareaARealizar = new javax.swing.JButton();
@@ -101,10 +99,6 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Técnico:");
-
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Estado:");
-        jLabel6.setToolTipText("Indica si la tarea definida en el reclamo esta realizada o no");
 
         jLabel7.setText("Tarea(s) a realizar para solucionar el Reclamo");
 
@@ -155,14 +149,12 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
                                             .addComponent(jScrollPane1)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(cmbTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cmbTecnicoTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(chkEstadoTareaARealizar))))
+                                            .addComponent(cmbTecnicoTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -199,21 +191,16 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cmbTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(cmbTecnicoTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6))
-                    .addComponent(chkEstadoTareaARealizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbTecnicoTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarTareaARealizar)
                     .addComponent(btnEliminarTareaARealizar)
@@ -238,11 +225,11 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
             TareaARealizar TAR = (TareaARealizar) this.lstDetalleReclamo.getSelectedValue();
             TareaDefinida t = (TareaDefinida) this.cmbTareaARealizar.getSelectedItem();
             Object e = (Object) this.cmbTecnicoTareaARealizar.getSelectedItem();
-            if (this.chkEstadoTareaARealizar.isSelected()) {
-                TAR.setFinalizado(true);
-            } else {
-                TAR.setFinalizado(false);
-            }
+//            if (this.chkEstadoTareaARealizar.isSelected()) {
+//                TAR.setFinalizado(true);
+//            } else {
+//                TAR.setFinalizado(false);
+//            }
             this.controlador.editarTareaARealizar(reclamo, TAR, t, e);
         } else {
             TareaDefinida t = (TareaDefinida) this.cmbTareaARealizar.getSelectedItem();
@@ -257,17 +244,12 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         if (TAR != null) {
             // Habilito el boton para eliminar y el checkbox
             this.btnEliminarTareaARealizar.setEnabled(true);
-            this.chkEstadoTareaARealizar.setEnabled(true);
             // relleno los demas campos
             this.cmbTareaARealizar.setSelectedItem(TAR.getTareaDefinida());
             this.cmbTecnicoTareaARealizar.setSelectedItem(TAR.getTecnico());
-            if (TAR.isFinalizado()) {
-                this.chkEstadoTareaARealizar.setSelected(true);
-            }
         } else {
             // desabilito el boton para eliminar y el checkbox
             this.btnEliminarTareaARealizar.setEnabled(false);
-            this.chkEstadoTareaARealizar.setEnabled(false);
         }
     }//GEN-LAST:event_lstDetalleReclamoValueChanged
 
@@ -305,13 +287,11 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         DefaultComboBoxModel mCmbTecnicosCapacitados = new DefaultComboBoxModel(this.reclamo.getArticulo().getTipoDeArticulo().getTecnicos().toArray());
         this.cmbTecnicoTareaARealizar.setModel(mCmbTecnicosCapacitados);
         this.cmbTecnicoTareaARealizar.setSelectedIndex(-1);
-        this.chkEstadoTareaARealizar.setSelected(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarTareaARealizar;
     private javax.swing.JButton btnGuardarTareaARealizar;
     private javax.swing.JButton btnNuevoTareaARealizar;
-    private javax.swing.JCheckBox chkEstadoTareaARealizar;
     private javax.swing.JComboBox<String> cmbTareaARealizar;
     private javax.swing.JComboBox<String> cmbTecnicoTareaARealizar;
     private javax.swing.JLabel jLabel1;
@@ -319,7 +299,6 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
