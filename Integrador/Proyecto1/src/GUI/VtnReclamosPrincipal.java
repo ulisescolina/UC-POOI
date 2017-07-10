@@ -56,7 +56,6 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextPane();
         btnEditarDetalleReclamo = new javax.swing.JButton();
         btnNuevoReclamo = new javax.swing.JButton();
-        btnEliminarReclamo = new javax.swing.JButton();
         btnGuardarReclamo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -113,14 +112,6 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarReclamo.setText("Eliminar");
-        btnEliminarReclamo.setEnabled(false);
-        btnEliminarReclamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarReclamoActionPerformed(evt);
-            }
-        });
-
         btnGuardarReclamo.setText("Guardar");
         btnGuardarReclamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,10 +154,9 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                                 .addComponent(lblFechaEntradaReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnNuevoReclamo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminarReclamo)
-                                .addGap(31, 31, 31)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnGuardarReclamo))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
@@ -180,7 +170,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(SpnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditarDetalleReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -227,7 +217,6 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNuevoReclamo)
-                            .addComponent(btnEliminarReclamo)
                             .addComponent(btnGuardarReclamo))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
@@ -240,6 +229,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
     private void btnGuardarReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReclamoActionPerformed
             if (this.cmbArticulo.getSelectedItem() == null) {
                 this.controlador.mensaje("MA", "Es OBLIGATORIO que defina el articulo para el cual esta Creando/Editando el Reclamo", "Advertencia");
+                return;
             }
             if (!this.lstReclamos.isSelectionEmpty()) {
                 Reclamo r = (Reclamo) this.lstReclamos.getSelectedValue();
@@ -262,7 +252,6 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
             // Habilito los botones deshabilitados
             this.btnEditarDetalleReclamo.setEnabled(true);
-            this.btnEliminarReclamo.setEnabled(true);
 
             // Lleno las cajas de texto y demas
             this.txtDescripcion.setText(r.getDescProblema());
@@ -273,7 +262,6 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         } else {
             // Desabilito los botones habilitados
             this.btnEditarDetalleReclamo.setEnabled(false);
-            this.btnEliminarReclamo.setEnabled(false);
         }
     }//GEN-LAST:event_lstReclamosValueChanged
 
@@ -285,17 +273,6 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
     private void btnNuevoReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoReclamoActionPerformed
         reiniciarReclamosPrincipal();
     }//GEN-LAST:event_btnNuevoReclamoActionPerformed
-
-    private void btnEliminarReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarReclamoActionPerformed
-        Reclamo r = (Reclamo) this.lstReclamos.getSelectedValue();
-        if (r != null) {
-            int transaccion = this.controlador.eliminarReclamo(r);
-            if (transaccion != 0) {
-                this.controlador.mensajeErrorPersistencia("EPE", "el ", "reclamo", "Error de Persistencia");
-            }
-            reiniciarReclamosPrincipal();
-        }
-    }//GEN-LAST:event_btnEliminarReclamoActionPerformed
 
     private void btnEditarDetalleReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarDetalleReclamoActionPerformed
         Reclamo r = (Reclamo) this.lstReclamos.getSelectedValue();
@@ -320,7 +297,6 @@ private void reiniciarReclamosPrincipal() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner SpnFecha;
     private javax.swing.JButton btnEditarDetalleReclamo;
-    private javax.swing.JButton btnEliminarReclamo;
     private javax.swing.JButton btnGuardarReclamo;
     private javax.swing.JButton btnNuevoReclamo;
     private javax.swing.JComboBox<String> cmbArticulo;

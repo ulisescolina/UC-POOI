@@ -5,6 +5,7 @@
  */
 package modelo;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ public class TiempoInvertido implements Serializable{
     private int id_tiempoinvertido;
     private double horasInvertidas;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private final Date fecha;
+    private Date fecha;
     /*====================== Fin Atributos de la clase =======================*/
     
     /*==================== Atributos para las relaciones =====================*/
@@ -48,8 +49,8 @@ public class TiempoInvertido implements Serializable{
         this.fecha = new Date();
     }
 
-    public TiempoInvertido(int id_tiempoinvertido, double horasInvertidas, Date fecha) {
-        this.id_tiempoinvertido = id_tiempoinvertido;
+    public TiempoInvertido(TareaARealizar tar, double horasInvertidas, Date fecha) {
+        this.tarea = tar;
         this.horasInvertidas = horasInvertidas;
         this.fecha = new Date();
     }
@@ -73,4 +74,25 @@ public class TiempoInvertido implements Serializable{
     public Date getFecha() {
         return fecha;
     }
+    
+    public void setFecha(Date nFecha) {
+        this.fecha = nFecha;
+    }
+    
+    @Override
+    public String toString() {
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        String tiempo = "";
+        tiempo = "Fecha: "+f.format(this.getFecha()) +", Horas Invertidas: "+ String.valueOf(this.getHorasInvertidas());
+        return tiempo;
+    }
+
+    public TareaARealizar getTarea() {
+        return tarea;
+    }
+    
+    public void setTarea(TareaARealizar TAR) {
+        this.tarea = TAR;
+    }
+        
 }

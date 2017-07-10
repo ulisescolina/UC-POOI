@@ -5,17 +5,10 @@
  */
 package modelo;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -41,6 +34,30 @@ public class EmpleadoMensual extends Tecnico implements Serializable {
         super(nNombres, nApellidos, nDocumentoUnico);
         this.sueldoMensual = nSueldoMensual;
     }
+    
+    public String getNombre() {
+        return this.nombres;
+    }
+    
+    public void setNombre(String nNombre) {
+        this.nombres = nNombre;
+    }
+    
+    public String getApellidos() {
+        return this.apellidos;
+    }
+    
+    public void setApellidos(String nApellidos) {
+        this.apellidos = nApellidos;
+    }
+    
+    public String getDocumentoUnico() {
+        return this.documentoUnico;
+    }
+    
+    public void setDocumentoUnico (String nDU) {
+        this.documentoUnico = nDU;
+    }
 
     public void setSueldoMensual(double sueldoMensual) {
         this.sueldoMensual = sueldoMensual;
@@ -48,6 +65,47 @@ public class EmpleadoMensual extends Tecnico implements Serializable {
 
     public double getSueldoMensual() {
         return sueldoMensual;
+    }
+    
+    @Override
+    public String toString()  {
+        return "(" + this.documentoUnico +") "+ this.apellidos + ", "+this.nombres;
+    }
+    
+    /*Implementacion metodos abstractos de la superclase*/
+    @Override
+    public void bajaTecnico() {
+        this.activo = false;
+    }
+    
+    @Override
+    public void agregarArticuloEspecializado(TipoDeArticulo TDA){
+        this.articulosEspecializados.add(TDA);
+    }
+    
+    @Override
+    public void quitarArticuloEspecializado(TipoDeArticulo TDA) {
+        this.articulosEspecializados.remove(TDA);
+    }
+    
+    @Override
+    public Set getArticulosEspecializados() {
+        return this.articulosEspecializados;
+    }
+    
+    @Override
+    public void agregarTarea(TareaARealizar TAR) {
+        this.tareas.add(TAR);
+    }
+    
+    @Override
+    public void quitarTarea(TareaARealizar TAR) {
+        this.tareas.remove(TAR);
+    }
+    
+    @Override
+    public List getTareas() {
+        return this.tareas;
     }
     
     

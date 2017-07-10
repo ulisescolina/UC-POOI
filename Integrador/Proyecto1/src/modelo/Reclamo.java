@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 
@@ -35,6 +37,8 @@ public class Reclamo implements Serializable{
     private Date fechaEntrada;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaEstimEntrega;
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    private Date fechaFin;
     /*====================== Fin Atributos de la clase =======================*/
     
     /*==================== Atributos para las relaciones =====================*/
@@ -48,14 +52,14 @@ public class Reclamo implements Serializable{
         Un reclamo conoce las tareas a realizar para que este este completo
     */
     @OneToMany(mappedBy="reclamo")
-    private List<TareaARealizar> tareas;
+    private Set<TareaARealizar> tareas;
     /*================== Fin Atributos para las relaciones ===================*/
 
     public Reclamo() {
         this.descProblema = "";
         this.fechaEntrada = new Date();
         this.fechaEstimEntrega = null;
-        this.tareas = new ArrayList<>();
+        this.tareas = new HashSet<>();
     }
     
     public Reclamo(String descProblema, Date fechaEstimEntrega, Articulo nArticulo) {
@@ -63,7 +67,7 @@ public class Reclamo implements Serializable{
         this.fechaEntrada = new Date();
         this.fechaEstimEntrega = fechaEstimEntrega;
         this.articulo = nArticulo;
-        this.tareas = new ArrayList<>();
+        this.tareas = new HashSet<>();
     }
 
     public int getNumero() {
@@ -89,6 +93,14 @@ public class Reclamo implements Serializable{
     public void setFechaEstimEntrega(Date fechaEstimEntrega) {
         this.fechaEstimEntrega = fechaEstimEntrega;
     }
+
+//    public Date getFechaFin() {
+//        return fechaFin;
+//    }
+//
+//    public void setFechaFin(Date fechaFin) {
+//        this.fechaFin = fechaFin;
+//    }
     
     @Override
     public String toString(){
@@ -103,7 +115,7 @@ public class Reclamo implements Serializable{
         return this.articulo;
     }
     
-    public List getTareas() {
+    public Set getTareas() {
         return this.tareas;
     }
     
