@@ -148,7 +148,7 @@ public class VtnArticulos extends javax.swing.JFrame {
             return;
         }
         
-        if (this.txtNombreArticulo.getText() == null) {
+        if (this.txtNombreArticulo.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer el nombre del Articulo obligatoriamente.", "Atención");
             return;
         }

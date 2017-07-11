@@ -62,6 +62,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         lblFechaFinReclamo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cmbArticulo = new javax.swing.JComboBox<>();
+        lblAviso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reclamos");
@@ -90,6 +91,10 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(lstReclamos);
 
         jLabel4.setText("Descripción");
+
+        lblNumeroReclamo.setText(" ");
+
+        lblFechaEntradaReclamo.setText(" ");
 
         SpnFecha.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_MONTH));
         SpnFecha.setToolTipText("Año");
@@ -124,8 +129,12 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
 
         jCheckBox1.setText("Baja reclamo");
 
+        lblFechaFinReclamo.setText(" ");
+
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Fecha de Fin");
+
+        lblAviso.setText("<html>Al ser dado de alta los datos principales del reclamo no pueden ser editados. El detalle puede ser modificado una unica vez</html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,92 +142,89 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(lblFechaEntradaReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbArticulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblFechaFinReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNumeroReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnNuevoReclamo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardarReclamo))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCheckBox1))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbArticulo, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblNumeroReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(lblFechaEntradaReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnNuevoReclamo)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardarReclamo))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel5)
-                                .addGap(196, 196, 196)
-                                .addComponent(lblFechaFinReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnEditarDetalleReclamo)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(SpnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditarDetalleReclamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(SpnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 223, Short.MAX_VALUE))
+                    .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblAviso, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblNumeroReclamo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblFechaEntradaReclamo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(lblNumeroReclamo))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(lblFechaEntradaReclamo))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(SpnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblFechaFinReclamo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel5)))
-                        .addGap(11, 11, 11)
-                        .addComponent(cmbArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditarDetalleReclamo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNuevoReclamo)
-                            .addComponent(btnGuardarReclamo))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SpnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblFechaFinReclamo))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditarDetalleReclamo)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarReclamo)
+                    .addComponent(btnNuevoReclamo))
                 .addContainerGap())
         );
 
@@ -226,27 +232,21 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReclamoActionPerformed
-            if (this.cmbArticulo.getSelectedItem() == null) {
-                this.controlador.mensaje("MA", "Es OBLIGATORIO que defina el articulo para el cual esta Creando/Editando el Reclamo", "Advertencia");
-                return;
-            }
-            if (this.txtDescripcion.getText() == null) {
-                this.controlador.mensaje("MA", "Debe establecer una descripcion al reclamo obligatoriamente.", "Atención");
-                return;
-            }
-            if (!this.lstReclamos.isSelectionEmpty()) {
-                Reclamo r = (Reclamo) this.lstReclamos.getSelectedValue();
-                String nDescripcionProblema = this.txtDescripcion.getText();
-                Articulo a = (Articulo) this.cmbArticulo.getSelectedItem();
-                Date f = (Date) this.SpnFecha.getValue();
-                this.controlador.editarReclamo(r, nDescripcionProblema, f, a);
-            } else {
-                String nDescripcionProblema = this.txtDescripcion.getText();
-                Articulo a = (Articulo) this.cmbArticulo.getSelectedItem();
-                Date f = (Date) this.SpnFecha.getValue();
-                this.controlador.agregarReclamo(nDescripcionProblema, f, a);
-            }
-            reiniciarReclamosPrincipal();
+        if (this.cmbArticulo.getSelectedItem() == null) {
+            this.controlador.mensaje("MA", "Es OBLIGATORIO que defina el articulo para el cual esta Creando/Editando el Reclamo", "Advertencia");
+            return;
+        }
+        if (this.txtDescripcion.getText().isEmpty()) {
+            this.controlador.mensaje("MA", "Debe establecer una descripcion al reclamo obligatoriamente.", "Atención");
+            return;
+        }
+        if (this.lstReclamos.isSelectionEmpty()) {
+            String nDescripcionProblema = this.txtDescripcion.getText();
+            Articulo a = (Articulo) this.cmbArticulo.getSelectedItem();
+            Date f = (Date) this.SpnFecha.getValue();
+            this.controlador.agregarReclamo(nDescripcionProblema, f, a);
+        }
+        reiniciarReclamosPrincipal();
     }//GEN-LAST:event_btnGuardarReclamoActionPerformed
 
     private void lstReclamosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstReclamosValueChanged
@@ -254,6 +254,15 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         if (r != null) {
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
             // Habilito los botones deshabilitados
+            
+            if (r.isEditable()) {
+                this.btnEditarDetalleReclamo.setText("Editar Detalles del Reclamo");
+                this.btnEditarDetalleReclamo.setToolTipText("El detalle para este reclamo se habilitara esta unica vez.");
+            } else {
+                this.btnEditarDetalleReclamo.setText("Ver Detalles del Reclamo");
+                this.btnEditarDetalleReclamo.setToolTipText("El reclamo no puede ser editado, unicamente se le permite ver el detalle.");
+            }
+            
             this.btnEditarDetalleReclamo.setEnabled(true);
 
             // Lleno las cajas de texto y demas
@@ -262,9 +271,21 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
             this.cmbArticulo.setSelectedItem(r.getArticulo());
             this.lblFechaEntradaReclamo.setText(f.format(r.getFechaEntrada()));
             this.lblNumeroReclamo.setText(String.valueOf(r.getNumero()));
+            
+            // Desabilito la edicion
+            this.txtDescripcion.setEnabled(false);
+            this.SpnFecha.setEnabled(false);
+            this.cmbArticulo.setEnabled(false);
+            this.btnGuardarReclamo.setEnabled(false);
         } else {
             // Desabilito los botones habilitados
             this.btnEditarDetalleReclamo.setEnabled(false);
+            
+            // Desabilito la edicion
+            this.txtDescripcion.setEnabled(true);
+            this.SpnFecha.setEnabled(true);
+            this.cmbArticulo.setEnabled(true);
+            this.btnGuardarReclamo.setEnabled(true);
         }
     }//GEN-LAST:event_lstReclamosValueChanged
 
@@ -312,6 +333,7 @@ private void reiniciarReclamosPrincipal() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblAviso;
     private javax.swing.JLabel lblFechaEntradaReclamo;
     private javax.swing.JLabel lblFechaFinReclamo;
     private javax.swing.JLabel lblNumeroReclamo;

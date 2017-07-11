@@ -342,11 +342,11 @@ public class VtnConfiguraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarTareaDefinidaActionPerformed
 
     private void btnGuardarTipoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTipoArticuloActionPerformed
-        if (this.txtCodigoTipoArticulo.getText() == null) {
+        if (this.txtCodigoTipoArticulo.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer un código al tipo de articulo obligatoriamente.", "Atención");
             return;
         }
-        if (this.txtNombreTipoArticulo.getText() == null) {
+        if (this.txtNombreTipoArticulo.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer un nombre al tipo de articulo obligatoriamente.", "Atención");
             return;
         }
@@ -395,17 +395,17 @@ public class VtnConfiguraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarTipoArticuloActionPerformed
 
     private void btnGuardarTareaDefinidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTareaDefinidaActionPerformed
-        if (this.txtCodigoTareaDefinida.getText() == null) {
+        if (this.txtCodigoTareaDefinida.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer un código a la tarea definida obligatoriamente.", "Atención");
             return;
         }
         
-        if (this.txtDescripcionTareaDefinida.getText() == null) {
+        if (this.txtDescripcionTareaDefinida.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer una descripción a la tarea definida obligatoriamente.", "Atención");
             return;
         }
         
-        if (this.txtNombreTareaDefinida.getText() == null) {
+        if (this.txtNombreTareaDefinida.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer un nombre a la tarea definidaobligatoriamente.", "Atención");
             return;
         }
