@@ -37,8 +37,9 @@ public class Reclamo implements Serializable{
     private Date fechaEntrada;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaEstimEntrega;
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-//    private Date fechaFin;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date fechaFin;
+    private boolean editable;
     /*====================== Fin Atributos de la clase =======================*/
     
     /*==================== Atributos para las relaciones =====================*/
@@ -58,6 +59,8 @@ public class Reclamo implements Serializable{
     public Reclamo() {
         this.descProblema = "";
         this.fechaEntrada = new Date();
+        this.editable = true;
+        this.fechaFin = null;
         this.fechaEstimEntrega = null;
         this.tareas = new HashSet<>();
     }
@@ -66,6 +69,8 @@ public class Reclamo implements Serializable{
         this.descProblema = descProblema;
         this.fechaEntrada = new Date();
         this.fechaEstimEntrega = fechaEstimEntrega;
+        this.editable = true;
+        this.fechaFin = null;
         this.articulo = nArticulo;
         this.tareas = new HashSet<>();
     }
@@ -94,13 +99,23 @@ public class Reclamo implements Serializable{
         this.fechaEstimEntrega = fechaEstimEntrega;
     }
 
-//    public Date getFechaFin() {
-//        return fechaFin;
-//    }
-//
-//    public void setFechaFin(Date fechaFin) {
-//        this.fechaFin = fechaFin;
-//    }
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+    
+    
     
     @Override
     public String toString(){
