@@ -217,22 +217,22 @@ public class VtnTecnicosPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoTecnicoItemStateChanged
 
     private void btnGuardarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTecnicoActionPerformed
-        if (this.txtNombresTecnico.getText() == null) {
+        if (this.txtNombresTecnico.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer el/los nombre/s del empleado obligatoriamente.", "Atención");
             return;
         }
         
-        if (this.txtApellidosTecnico.getText() == null) {
+        if (this.txtApellidosTecnico.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer el/los apellido/s del empleado obligatoriamente.", "Atención");
             return;
         }
         
-        if (this.txtDU.getText() == null) {
+        if (this.txtDU.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer el documento único del empleado obligatoriamente.", "Atención");
             return;
         }
         
-        if (this.txtRemuneracion.getText() == null) {
+        if (this.txtRemuneracion.getText().isEmpty()) {
             this.controlador.mensaje("MA", "Debe establecer el valor de la remuneración obligatoriamente.", "Atención");
             return;
         }
@@ -242,20 +242,30 @@ public class VtnTecnicosPrincipal extends javax.swing.JFrame {
                 return;
         }
         if (!this.lstEmpleados.isSelectionEmpty()) {
-            Object ej = (Object) this.lstEmpleados.getSelectedValue();
-            String nNombres = this.txtNombresTecnico.getText();
-            String nApellidos = this.txtApellidosTecnico.getText();
-            String nDU = this.txtDU.getText();
-            Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
-            String TT = this.cmbTipoTecnico.getSelectedItem().toString();
-            this.controlador.editarTecnico(ej, nNombres, nApellidos, nDU, TT, nRemuneracion);
+            try{
+                Object ej = (Object) this.lstEmpleados.getSelectedValue();
+                String nNombres = this.txtNombresTecnico.getText();
+                String nApellidos = this.txtApellidosTecnico.getText();
+                String TT = this.cmbTipoTecnico.getSelectedItem().toString();
+                String nDU = this.txtDU.getText();
+                Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
+                this.controlador.editarTecnico(ej, nNombres, nApellidos, nDU, TT, nRemuneracion);
+            } catch (java.lang.NumberFormatException nfe) {
+                this.controlador.mensaje("MA", "Por vavor ingrese un valor numerico en el campo de remuneracion", "Atención");
+                return;
+            }
         } else {
-            String nNombres = this.txtNombresTecnico.getText();
-            String nApellidos = this.txtApellidosTecnico.getText();
-            String nDU = this.txtDU.getText();
-            Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
-            String TT = this.cmbTipoTecnico.getSelectedItem().toString();
-            this.controlador.agregarTecnico(nNombres, nApellidos, nDU, TT, nRemuneracion);
+            try{
+                String nNombres = this.txtNombresTecnico.getText();
+                String nApellidos = this.txtApellidosTecnico.getText();
+                String nDU = this.txtDU.getText();
+                Double nRemuneracion = Double.valueOf(this.txtRemuneracion.getText());
+                String TT = this.cmbTipoTecnico.getSelectedItem().toString();
+                this.controlador.agregarTecnico(nNombres, nApellidos, nDU, TT, nRemuneracion);
+            } catch (java.lang.NumberFormatException nfe) {
+                this.controlador.mensaje("MA", "Por vavor ingrese un valor numerico en el campo de remuneracion", "Atención");
+                return;
+            }
         }
         reiniciarTecnicosPrincipal();
     }//GEN-LAST:event_btnGuardarTecnicoActionPerformed

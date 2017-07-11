@@ -195,7 +195,7 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
                 return;
             }
         } catch (NumberFormatException nfe) {
-            this.controlador.mensaje("MA", "Ingrese datos válidos en la caja de texto. Para separador decimal utilice Punto (.)", "Error");
+            this.controlador.mensaje("MA", "Ingrese valor numerico en el valor de horas invertidas. Para separador decimal utilice Punto (.)", "Error");
             return;
         }
         reiniciarTiemposInvertidos();
