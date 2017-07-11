@@ -10,6 +10,7 @@ import controlador.Controlador;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -159,17 +160,16 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(122, 122, 122))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnNuevoTareaARealizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminarTareaARealizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardarTareaARealizar)
-                                .addContainerGap())))))
+                        .addComponent(jLabel7)
+                        .addGap(122, 122, 122))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnNuevoTareaARealizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarTareaARealizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardarTareaARealizar)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,18 +200,24 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbTecnicoTareaARealizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardarTareaARealizar)
+                    .addComponent(btnNuevoTareaARealizar)
                     .addComponent(btnEliminarTareaARealizar)
-                    .addComponent(btnNuevoTareaARealizar))
-                .addContainerGap())
+                    .addComponent(btnGuardarTareaARealizar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (reclamo.isEditable()) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Confirma que desea salir de la edicion del Reclamo, No podrá volver a agregar tareas al reclamo.", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirmacion == 0) {
+                this.controlador.setReclamoSoloLectura(reclamo);    
+            }    
+        }
         this.previo.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
@@ -225,11 +231,6 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
             TareaARealizar TAR = (TareaARealizar) this.lstDetalleReclamo.getSelectedValue();
             TareaDefinida t = (TareaDefinida) this.cmbTareaARealizar.getSelectedItem();
             Object e = (Object) this.cmbTecnicoTareaARealizar.getSelectedItem();
-//            if (this.chkEstadoTareaARealizar.isSelected()) {
-//                TAR.setFinalizado(true);
-//            } else {
-//                TAR.setFinalizado(false);
-//            }
             this.controlador.editarTareaARealizar(reclamo, TAR, t, e);
         } else {
             TareaDefinida t = (TareaDefinida) this.cmbTareaARealizar.getSelectedItem();
@@ -242,14 +243,24 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
     private void lstDetalleReclamoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDetalleReclamoValueChanged
         TareaARealizar TAR = (TareaARealizar) this.lstDetalleReclamo.getSelectedValue();
         if (TAR != null) {
-            // Habilito el boton para eliminar y el checkbox
+            // Habilito el boton para eliminar
             this.btnEliminarTareaARealizar.setEnabled(true);
             // relleno los demas campos
             this.cmbTareaARealizar.setSelectedItem(TAR.getTareaDefinida());
             this.cmbTecnicoTareaARealizar.setSelectedItem(TAR.getTecnico());
+            
+            if (!reclamo.isEditable()) {
+                this.cmbTareaARealizar.setEnabled(false);
+                this.cmbTecnicoTareaARealizar.setEnabled(false);
+                this.btnNuevoTareaARealizar.setEnabled(false);
+                this.btnEliminarTareaARealizar.setEnabled(false);
+            }
         } else {
-            // desabilito el boton para eliminar y el checkbox
-            this.btnEliminarTareaARealizar.setEnabled(false);
+            // desabilito el boton para eliminar
+            if (reclamo.isEditable()) {
+                this.btnEliminarTareaARealizar.setEnabled(false);
+            }
+            
         }
     }//GEN-LAST:event_lstDetalleReclamoValueChanged
 
@@ -287,6 +298,12 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         DefaultComboBoxModel mCmbTecnicosCapacitados = new DefaultComboBoxModel(this.reclamo.getArticulo().getTipoDeArticulo().getTecnicos().toArray());
         this.cmbTecnicoTareaARealizar.setModel(mCmbTecnicosCapacitados);
         this.cmbTecnicoTareaARealizar.setSelectedIndex(-1);
+        
+        if (!reclamo.isEditable()) {
+            this.btnGuardarTareaARealizar.setEnabled(false);
+            this.btnNuevoTareaARealizar.setEnabled(false);
+        }
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarTareaARealizar;
