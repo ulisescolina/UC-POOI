@@ -238,26 +238,9 @@ public class Controlador {
         }
     }
     
-    public void editarReclamo(Reclamo r, String nDescripcionProblema, Date nFechaEstimadaEntrega, Articulo a) {
-        if (r != null) {
-            this.persistencia.iniciarTransaccion();
-            try {
-                r.setDescProblema(nDescripcionProblema.toUpperCase());
-                if (r.getArticulo() != null) {
-                    Articulo articuloViejo = r.getArticulo();
-                    articuloViejo.quitarReclamo(r);
-                    this.persistencia.modificar(articuloViejo);
-                }
-                a.agregarReclamo(r);
-                r.setArticulo(a);
-                this.persistencia.modificar(a);
-                this.persistencia.modificar(r);
-                this.persistencia.confirmarTransaccion();
-            } catch (Exception e) {
-                this.persistencia.descartarTransaccion();
-            }
-        }
-    }
+    /*
+    * La edicion del reclamo no esta permitida
+    */
     
     public int eliminarReclamo(Reclamo r) {
         if (r.getTareas().isEmpty()) {
@@ -272,6 +255,15 @@ public class Controlador {
         } else {
             this.persistencia.descartarTransaccion();
             return 1;
+        }
+    }
+    
+    public void setReclamoSoloLectura(Reclamo r) {
+        if (r != null) {
+            this.persistencia.iniciarTransaccion();
+            r.setEditable(false);
+            this.persistencia.modificar(r);
+            this.persistencia.confirmarTransaccion();
         }
     }
     /*===================== Fin Metodos para Reclamo =========================*/
