@@ -58,7 +58,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         btnNuevoReclamo = new javax.swing.JButton();
         btnGuardarReclamo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chkBajaReclamo = new javax.swing.JCheckBox();
         lblFechaFinReclamo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cmbArticulo = new javax.swing.JComboBox<>();
@@ -127,7 +127,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Articulo");
 
-        jCheckBox1.setText("Baja reclamo");
+        chkBajaReclamo.setText("Baja reclamo");
 
         lblFechaFinReclamo.setText(" ");
 
@@ -172,7 +172,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1))
+                        .addComponent(chkBajaReclamo))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEditarDetalleReclamo)
@@ -216,7 +216,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(chkBajaReclamo, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -245,6 +245,11 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
             Articulo a = (Articulo) this.cmbArticulo.getSelectedItem();
             Date f = (Date) this.SpnFecha.getValue();
             this.controlador.agregarReclamo(nDescripcionProblema, f, a);
+        } else {
+            if (this.chkBajaReclamo.isSelected()) {
+                Reclamo r = (Reclamo) this.lstReclamos.getSelectedValue();
+                this.controlador.setReclamoFinalizado(r);
+            }
         }
         reiniciarReclamosPrincipal();
     }//GEN-LAST:event_btnGuardarReclamoActionPerformed
@@ -271,17 +276,24 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
             this.cmbArticulo.setSelectedItem(r.getArticulo());
             this.lblFechaEntradaReclamo.setText(f.format(r.getFechaEntrada()));
             this.lblNumeroReclamo.setText(String.valueOf(r.getNumero()));
+            if (r.getFechaFin() != null) {
+                this.lblFechaFinReclamo.setText(f.format(r.getFechaFin()));
+                this.chkBajaReclamo.setEnabled(false);
+            } else {
+                this.chkBajaReclamo.setEnabled(true);
+            }
+            
             
             // Desabilito la edicion
             this.txtDescripcion.setEnabled(false);
             this.SpnFecha.setEnabled(false);
             this.cmbArticulo.setEnabled(false);
-            this.btnGuardarReclamo.setEnabled(false);
+            
         } else {
-            // Desabilito los botones habilitados
+            // Habilito los botones habilitados
             this.btnEditarDetalleReclamo.setEnabled(false);
             
-            // Desabilito la edicion
+            // Habilito la edicion
             this.txtDescripcion.setEnabled(true);
             this.SpnFecha.setEnabled(true);
             this.cmbArticulo.setEnabled(true);
@@ -316,6 +328,8 @@ private void reiniciarReclamosPrincipal() {
     this.cmbArticulo.setModel(modeloCombo);
     this.cmbArticulo.setSelectedIndex(-1);
     this.txtDescripcion.setText("");
+    this.chkBajaReclamo.setSelected(false);
+    this.chkBajaReclamo.setEnabled(false);
 }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -323,8 +337,8 @@ private void reiniciarReclamosPrincipal() {
     private javax.swing.JButton btnEditarDetalleReclamo;
     private javax.swing.JButton btnGuardarReclamo;
     private javax.swing.JButton btnNuevoReclamo;
+    private javax.swing.JCheckBox chkBajaReclamo;
     private javax.swing.JComboBox<String> cmbArticulo;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

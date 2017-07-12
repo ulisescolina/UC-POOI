@@ -8,6 +8,9 @@ package GUI;
 
 import controlador.Controlador;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import javax.swing.JFrame;
 import modelo.*;
 
@@ -61,6 +64,7 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
         txtCatnHoras = new javax.swing.JTextPane();
         btnAgregarTI = new javax.swing.JButton();
         btnEliminarTI = new javax.swing.JButton();
+        chkMarcarTareaFinalizada = new javax.swing.JCheckBox();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -110,14 +114,28 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
             }
         });
 
+        chkMarcarTareaFinalizada.setText("Marcar tarea como Finalizada");
+        chkMarcarTareaFinalizada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkMarcarTareaFinalizadaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(chkMarcarTareaFinalizada))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -133,19 +151,13 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(spnFecha)
                                     .addComponent(jScrollPane3))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 41, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(0, 19, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(213, 213, 213))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnEliminarTI)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAgregarTI)
-                                .addContainerGap())))))
+                                .addGap(10, 10, 10)
+                                .addComponent(btnAgregarTI)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,32 +166,44 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblTareaARealizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(chkMarcarTareaFinalizada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(spnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(13, 13, 13)
                         .addComponent(jLabel4))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarTI)
-                    .addComponent(btnEliminarTI))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnEliminarTI)
+                    .addComponent(btnAgregarTI))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (!tarea.isFinalizado()) {
+            if (this.chkMarcarTareaFinalizada.isSelected()) {
+                this.controlador.marcarTareaComoFinalizada(tarea);
+            }
+        }
+        
+        if (tarea.getReclamo().getFechaFin() == null) {
+            comprobarFinalizacionDeReclamo(tarea.getReclamo());
+        }
+        
         this.previo.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
@@ -203,7 +227,9 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
 
     private void lstTiemposValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstTiemposValueChanged
         if (!this.lstTiempos.isSelectionEmpty()) {
-            this.btnEliminarTI.setEnabled(true);
+            if (tarea.getReclamo().getFechaFin() == null) {
+                this.btnEliminarTI.setEnabled(true);    
+            }
         } else {
             this.btnEliminarTI.setEnabled(false);
         }
@@ -219,15 +245,43 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
             reiniciarTiemposInvertidos();
         }
     }//GEN-LAST:event_btnEliminarTIActionPerformed
+
+    private void chkMarcarTareaFinalizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkMarcarTareaFinalizadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkMarcarTareaFinalizadaActionPerformed
     
     private void reiniciarTiemposInvertidos() {
         this.lblTareaARealizar.setText(this.tarea.getTareaDefinida().toString());
         this.lstTiempos.setListData(this.controlador.listarTiemposInvertidos(tarea).toArray());
         this.txtCatnHoras.setText("");
+        if (tarea.isFinalizado()) {
+            this.chkMarcarTareaFinalizada.setSelected(true);
+            this.chkMarcarTareaFinalizada.setEnabled(false);
+            this.btnAgregarTI.setEnabled(false);
+            this.btnEliminarTI.setEnabled(false);
+        }
+        if (tarea.getReclamo().getFechaFin() != null) {
+            this.btnAgregarTI.setEnabled(false);    
+        }
+    }
+    
+    private void comprobarFinalizacionDeReclamo(Reclamo r) {
+        Set<TareaARealizar> lTareas= r.getTareas();
+        Iterator<TareaARealizar> li = lTareas.iterator();
+        int cantTareasPendientes = 0;
+        while (li.hasNext()) {
+            if (!li.next().isFinalizado()) {
+                cantTareasPendientes += 1;
+            }
+        }
+        if (cantTareasPendientes == 0) {
+            this.controlador.setReclamoFinalizado(r);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarTI;
     private javax.swing.JButton btnEliminarTI;
+    private javax.swing.JCheckBox chkMarcarTareaFinalizada;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
