@@ -266,6 +266,14 @@ public class Controlador {
             this.persistencia.confirmarTransaccion();
         }
     }
+    
+    public void setReclamoFinalizado(Reclamo r) {
+        this.persistencia.iniciarTransaccion();
+        Date diaFinalizacion = new Date();
+        r.setFechaFin(diaFinalizacion);
+        this.persistencia.modificar(r);
+        this.persistencia.confirmarTransaccion();
+    }
     /*===================== Fin Metodos para Reclamo =========================*/
     
     /*======================= Metodos para Tecnico ===========================*/
@@ -480,6 +488,13 @@ public class Controlador {
             return 1;
         }    
     }
+    
+    public void marcarTareaComoFinalizada(TareaARealizar TAR) {
+        this.persistencia.iniciarTransaccion();
+        TAR.setFinalizado(true);
+        this.persistencia.modificar(TAR);
+        this.persistencia.confirmarTransaccion();
+    }
     /*================== Fin Metodos para TareaARealizar =====================*/
     
     /*=================== Metodos para TiempoInvertido =======================*/
@@ -490,11 +505,16 @@ public class Controlador {
     public void agregarTiempoInvertido(TareaARealizar tar, double h, Date fecha) {
         this.persistencia.iniciarTransaccion();
         try {
-            TiempoInvertido ti = new TiempoInvertido(tar, h, fecha);
-            tar.agregarTiempoInvertido(ti);
-            this.persistencia.modificar(tar);
-            this.persistencia.insertar(ti);
-            this.persistencia.confirmarTransaccion();
+            if (h >= 8) {
+                mensaje("MA","La jornada laboral es de un maximo de 8 horas.","Atención");
+                this.persistencia.descartarTransaccion();
+                return;
+            }
+                TiempoInvertido ti = new TiempoInvertido(tar, h, fecha);
+                tar.agregarTiempoInvertido(ti);
+                this.persistencia.modificar(tar);
+                this.persistencia.insertar(ti);
+                this.persistencia.confirmarTransaccion();
         } catch (Exception e) {
             this.persistencia.descartarTransaccion();
         }   

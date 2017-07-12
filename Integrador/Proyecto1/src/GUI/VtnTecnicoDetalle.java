@@ -339,6 +339,7 @@ public class VtnTecnicoDetalle extends javax.swing.JFrame {
     private void reiniciarTecnicoDetalle() {
         if (this.tecnico instanceof EmpleadoMensual) {
             EmpleadoMensual e = (EmpleadoMensual) this.tecnico;
+            
             /*==Pantalla de info Basica==*/
             /*Cargar cajas de texto cabecera*/
             this.lblApellidosEmpleado.setText(e.getApellidos());
