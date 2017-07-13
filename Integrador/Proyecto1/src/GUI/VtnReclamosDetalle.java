@@ -299,7 +299,7 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         this.cmbTecnicoTareaARealizar.setModel(mCmbTecnicosCapacitados);
         this.cmbTecnicoTareaARealizar.setSelectedIndex(-1);
         
-        if (!reclamo.isEditable()) {
+        if (!reclamo.isEditable() || reclamo.getFechaFin() != null) {
             this.btnGuardarTareaARealizar.setEnabled(false);
             this.btnNuevoTareaARealizar.setEnabled(false);
         }
