@@ -260,7 +260,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
             // Habilito los botones deshabilitados
             
-            if (r.isEditable()) {
+            if (r.isEditable() && r.getFechaFin() == null) {
                 this.btnEditarDetalleReclamo.setText("Editar Detalles del Reclamo");
                 this.btnEditarDetalleReclamo.setToolTipText("El detalle para este reclamo se habilitara esta unica vez.");
             } else {
@@ -280,6 +280,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                 this.lblFechaFinReclamo.setText(f.format(r.getFechaFin()));
                 this.chkBajaReclamo.setEnabled(false);
             } else {
+                this.lblFechaFinReclamo.setText("");
                 this.chkBajaReclamo.setEnabled(true);
             }
             

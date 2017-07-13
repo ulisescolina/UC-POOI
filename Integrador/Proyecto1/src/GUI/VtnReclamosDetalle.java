@@ -213,13 +213,21 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (reclamo.isEditable()) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "Confirma que desea salir de la edicion del Reclamo, No podrá volver a agregar tareas al reclamo.", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (confirmacion == 0) {
-                this.controlador.setReclamoSoloLectura(reclamo);    
-            }    
+            Object [] opciones ={"Si","No"};
+            int confirmacion = JOptionPane.showOptionDialog(this, "Confirma que desea salir de la edicion del Reclamo, No podrá volver a agregar tareas al reclamo.", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null,opciones,"No");
+            // Si preciona 'Si', se procede a hacer el reclamo solo-lectura y se vuelve a hacer visible la ventana anterior 
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                this.controlador.setReclamoSoloLectura(reclamo);
+                this.previo.setVisible(true);
+                this.dispose();
+            } else {
+            // Si presiona 'No', se cambia la operacion por defecto de la ventana para que no haga nada al precionar el boton cerrar               
+                this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+            }
+        } else {
+            this.previo.setVisible(true);
+            this.dispose();
         }
-        this.previo.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
     private void btnGuardarTareaARealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTareaARealizarActionPerformed
@@ -299,7 +307,7 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         this.cmbTecnicoTareaARealizar.setModel(mCmbTecnicosCapacitados);
         this.cmbTecnicoTareaARealizar.setSelectedIndex(-1);
         
-        if (!reclamo.isEditable()) {
+        if (!reclamo.isEditable() || reclamo.getFechaFin() != null) {
             this.btnGuardarTareaARealizar.setEnabled(false);
             this.btnNuevoTareaARealizar.setEnabled(false);
         }
