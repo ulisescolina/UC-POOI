@@ -224,6 +224,9 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
             // Si presiona 'No', se cambia la operacion por defecto de la ventana para que no haga nada al precionar el boton cerrar               
                 this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
             }
+        } else {
+            this.previo.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
 
