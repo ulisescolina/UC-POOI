@@ -280,6 +280,7 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
                 this.lblFechaFinReclamo.setText(f.format(r.getFechaFin()));
                 this.chkBajaReclamo.setEnabled(false);
             } else {
+                this.lblFechaFinReclamo.setText("");
                 this.chkBajaReclamo.setEnabled(true);
             }
             
