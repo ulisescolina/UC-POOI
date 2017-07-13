@@ -339,7 +339,7 @@ public class VtnTecnicoDetalle extends javax.swing.JFrame {
     private void reiniciarTecnicoDetalle() {
         if (this.tecnico instanceof EmpleadoMensual) {
             EmpleadoMensual e = (EmpleadoMensual) this.tecnico;
-            
+            this.controlador.actualizarTecnico(e);
             /*==Pantalla de info Basica==*/
             /*Cargar cajas de texto cabecera*/
             this.lblApellidosEmpleado.setText(e.getApellidos());
@@ -358,6 +358,7 @@ public class VtnTecnicoDetalle extends javax.swing.JFrame {
             this.lstTareasAsignadas.setListData(e.getTareas().toArray());
         } else if (this.tecnico instanceof EmpleadoJornalero) {
             EmpleadoJornalero e = (EmpleadoJornalero) this.tecnico;
+            this.controlador.actualizarTecnico(e);
             /*==Pantalla de info Basica==*/
             /*Cargar cajas de texto cabecera*/
             this.lblApellidosEmpleado.setText(e.getApellidos());

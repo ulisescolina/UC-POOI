@@ -414,6 +414,13 @@ public class Controlador {
             return 1;
         }
     } 
+    
+    public void actualizarTecnico(Object T) {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.refrescar(T);
+        this.persistencia.modificar(T);
+        this.persistencia.confirmarTransaccion();
+    }
     /*===================== Fin Metodos para Tecnico =========================*/
     
     /*==================== Metodos para TareaARealizar =======================*/
