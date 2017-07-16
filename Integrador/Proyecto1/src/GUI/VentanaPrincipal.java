@@ -121,7 +121,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -269,7 +269,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 //            
 //            this.lstTecnicosVentanaPrincipal.setListData(lTecnicos.toArray());
 //            this.lblHorasInvertidasVentanaPrincipal.setText(String.valueOf(sumarHorasInvertidas(cHorasGlobal)));
-//            /**/
+//
 //        }
     }//GEN-LAST:event_lstReclamosActivosValueChanged
 
