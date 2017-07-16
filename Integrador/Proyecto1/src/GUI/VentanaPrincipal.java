@@ -6,6 +6,9 @@
 package GUI;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import modelo.*;
 
 /**
  *
@@ -13,6 +16,7 @@ import controlador.Controlador;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
     private final Controlador controlador;
+    private static final Object[] SIN_TECNICOS = {};
     /**
      * Creates new form VentanaPrincipal
      * @param c
@@ -36,9 +40,40 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnArticulos = new javax.swing.JButton();
         btnTecnicos = new javax.swing.JButton();
         btnConfiguraciones = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstReclamosActivos = new javax.swing.JList();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstReclamosFinalizados = new javax.swing.JList();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblNumeroReclamoVentanaPrincipal = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextPane();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstTecnicosVentanaPrincipal = new javax.swing.JList();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblFechaEntradaVentanaPrincipal = new javax.swing.JLabel();
+        lblArticuloVentanaPrincipal = new javax.swing.JLabel();
+        lblHorasInvertidasVentanaPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestión de Reclamos");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         tlb_principal.setRollover(true);
 
@@ -86,15 +121,211 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         tlb_principal.add(btnConfiguraciones);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Reclamos"), "Reclamos"));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo(s)"));
+
+        lstReclamosActivos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstReclamosActivosValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstReclamosActivos);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Finalizado(s)"));
+
+        jScrollPane2.setViewportView(lstReclamosFinalizados);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle"));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Número");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Fecha de Entrada");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Observaciones");
+        jLabel3.setToolTipText("Hace referencia a una fecha de entrega estimada.");
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Descripción");
+
+        lblNumeroReclamoVentanaPrincipal.setText(" ");
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Articulo");
+
+        txtDescripcion.setEditable(false);
+        jScrollPane3.setViewportView(txtDescripcion);
+
+        jScrollPane4.setViewportView(lstTecnicosVentanaPrincipal);
+
+        jLabel6.setText("Listado de Tecnicos que trabajaron en el reclamo");
+
+        jLabel7.setText("<html>Horas Invertidas<br>en el reclamo</html>");
+
+        lblFechaEntradaVentanaPrincipal.setText(" ");
+
+        lblArticuloVentanaPrincipal.setText(" ");
+
+        lblHorasInvertidasVentanaPrincipal.setText(" ");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNumeroReclamoVentanaPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3)
+                            .addComponent(lblFechaEntradaVentanaPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblArticuloVentanaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4)))
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblHorasInvertidasVentanaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 194, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblNumeroReclamoVentanaPrincipal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblFechaEntradaVentanaPrincipal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblArticuloVentanaPrincipal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHorasInvertidasVentanaPrincipal))
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlb_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tlb_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlb_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tlb_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getAccessibleContext().setAccessibleDescription("Proyecto integrador para la catedra de Programacion Orientada a Objetos 1 referente a la Gestion de Reclamos");
@@ -134,11 +365,122 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vtp.setVisible(true);
     }//GEN-LAST:event_btnTecnicosActionPerformed
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        reiniciarVentanaPrincipal();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void lstReclamosActivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstReclamosActivosValueChanged
+        this.lstReclamosFinalizados.setListData(this.controlador.listarReclamosFinalizados().toArray());
+        Reclamo r = (Reclamo) this.lstReclamosActivos.getSelectedValue();
+        List<Double> cHorasGlobal = new ArrayList<>();
+        if (r != null) {
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            int numeroReclamo = r.getNumero();
+            String fechaEntrada = f.format(r.getFechaEntrada());
+            String articulo = r.getArticulo().toString();
+            String descripcionProblema = r.getDescProblema();
+            /*Asignamos los valores a la cabecera de la columna de detalle*/
+            this.lblArticuloVentanaPrincipal.setText(articulo);
+            this.lblNumeroReclamoVentanaPrincipal.setText(String.valueOf(numeroReclamo));
+            this.lblFechaEntradaVentanaPrincipal.setText(fechaEntrada);
+            this.txtDescripcion.setText(descripcionProblema);
+            
+            /*obtenemos los tecnicos que trabajan en las tareas del reclamo*/
+            Set<TareaARealizar> lTareas = r.getTareas();
+            Iterator<TareaARealizar> it = lTareas.iterator();
+            Set<Tecnico> lTecnicos = new HashSet<>();
+            while (it.hasNext()) {
+                double cantHoras = 0;
+                lTecnicos.add(it.next().getTecnico()); // obtenemos al técnico y lo ponemos dentro de una coleccion
+                /*Sumamos las horas invertidas en cada tarea*/
+                List<TiempoInvertido> lTiempos = it.next().getTiempos();
+                Iterator<TiempoInvertido> iTiempos = lTiempos.iterator();
+                while (iTiempos.hasNext()) {
+                    System.out.println(iTiempos.next().getHorasInvertidas());
+                    cHorasGlobal.add(iTiempos.next().getHorasInvertidas());
+                }
+            }
+            
+            this.lstTecnicosVentanaPrincipal.setListData(lTecnicos.toArray());
+            this.lblHorasInvertidasVentanaPrincipal.setText(String.valueOf(sumarHorasInvertidas(cHorasGlobal)));
+            /**/
+        }
+    }//GEN-LAST:event_lstReclamosActivosValueChanged
+
+    private Double sumarHorasInvertidas(List<Double> ti) {
+        double cantHoras =0;
+        Iterator<Double> iCH = ti.iterator();
+        while(iCH.hasNext()) {
+            cantHoras += iCH.next();
+        }
+        return cantHoras;
+    }
+    
+    private void reiniciarVentanaPrincipal() {
+        /*obtengo los reclamos*/
+        List<Reclamo> lReclamos = this.controlador.listarReclamos();
+        Iterator<Reclamo> li = lReclamos.iterator();
+        /*Declaracion de variables que contendran los reclamos activos y finalizados*/
+        List<Reclamo> lReclamosActivos = this.controlador.listarReclamosActivos();
+        List<Reclamo> lReclamosFinalizados = this.controlador.listarReclamosFinalizados();
+        /*
+        try {
+             while (li.hasNext()) {
+                if (li.next() != null) {
+                    if (li.next().getFechaFin() == null) {
+                        // Cargar los reclamos activos
+                        if (li.next() != null) {
+                            lReclamosActivos.add(li.next());
+                        }
+                    } else {
+                        // Cargar los reclamos finalizados
+                        if (li.next() != null) {
+                            lReclamosFinalizados.add(li.next());
+                        }
+                    }
+                }    
+            }
+        } catch (Exception e) {
+            this.controlador.mensaje("MA", e.toString(), "Atención");
+        }*/
+        this.lstReclamosActivos.setListData(lReclamosActivos.toArray());
+        this.lstReclamosFinalizados.setListData(lReclamosFinalizados.toArray());
+        this.lblArticuloVentanaPrincipal.setText("");
+        this.lblFechaEntradaVentanaPrincipal.setText("");
+        this.lblHorasInvertidasVentanaPrincipal.setText("");
+        this.lblNumeroReclamoVentanaPrincipal.setText("");
+        this.txtDescripcion.setText("");
+        this.lstTecnicosVentanaPrincipal.setListData(SIN_TECNICOS);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArticulos;
     private javax.swing.JButton btnConfiguraciones;
     private javax.swing.JButton btnReclamos;
     private javax.swing.JButton btnTecnicos;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblArticuloVentanaPrincipal;
+    private javax.swing.JLabel lblFechaEntradaVentanaPrincipal;
+    private javax.swing.JLabel lblHorasInvertidasVentanaPrincipal;
+    private javax.swing.JLabel lblNumeroReclamoVentanaPrincipal;
+    private javax.swing.JList lstReclamosActivos;
+    private javax.swing.JList lstReclamosFinalizados;
+    private javax.swing.JList lstTecnicosVentanaPrincipal;
     private javax.swing.JToolBar tlb_principal;
+    private javax.swing.JTextPane txtDescripcion;
     // End of variables declaration//GEN-END:variables
 }

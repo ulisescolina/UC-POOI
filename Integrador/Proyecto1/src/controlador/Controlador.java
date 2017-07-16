@@ -225,6 +225,14 @@ public class Controlador {
         return this.persistencia.buscarTodosOrdenadosPor(Reclamo.class, Reclamo_.numero);
     }
     
+    public List listarReclamosActivos(){
+        return this.persistencia.buscarReclamosActivos();
+    }
+    
+    public List listarReclamosFinalizados() {
+        return this.persistencia.buscarReclamosFinalizados();
+    }
+    
     public void agregarReclamo(String nDescripcionProblema, Date nFechaEstimadaEntrega, Articulo a) {
         this.persistencia.iniciarTransaccion();
         try {

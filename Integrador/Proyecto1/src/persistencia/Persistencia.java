@@ -91,4 +91,27 @@ public class Persistencia {
         consulta.where(cb.equal(c.get("activo"), true));
         return (List<T>) em.createQuery(consulta).getResultList();
     }
+    
+    /*Metodos para los Reclamos*/
+    /**
+     * Listar los reclamos que estan activos
+     */
+    public <T extends Object> List<T> buscarReclamosActivos() {
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<modelo.Reclamo> consulta = cb.createQuery(modelo.Reclamo.class);
+        Root<modelo.Reclamo> c = consulta.from(modelo.Reclamo.class);
+        consulta.where(c.get("fechaFin").isNull());
+        return (List<T>) em.createQuery(consulta).getResultList();
+    }
+    
+    /**
+     * Listar los reclamos que estan activos
+     */
+    public <T extends Object> List<T> buscarReclamosFinalizados() {
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<modelo.Reclamo> consulta = cb.createQuery(modelo.Reclamo.class);
+        Root<modelo.Reclamo> c = consulta.from(modelo.Reclamo.class);
+        consulta.where(c.get("fechaFin").isNotNull());
+        return (List<T>) em.createQuery(consulta).getResultList();
+    }
 }

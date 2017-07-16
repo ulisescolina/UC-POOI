@@ -218,6 +218,10 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
             // Si preciona 'Si', se procede a hacer el reclamo solo-lectura y se vuelve a hacer visible la ventana anterior 
             if (confirmacion == JOptionPane.YES_OPTION) {
                 this.controlador.setReclamoSoloLectura(reclamo);
+                if (reclamo.getTareas().isEmpty()) {
+                    this.controlador.mensaje("MA", "Dado a que no agrego tareas para el reclamo, este se marcará como finalizado.", "Atención");
+                    this.controlador.setReclamoFinalizado(reclamo);
+                }
                 this.previo.setVisible(true);
                 this.dispose();
             } else {
