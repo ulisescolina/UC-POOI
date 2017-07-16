@@ -269,7 +269,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 //            
 //            this.lstTecnicosVentanaPrincipal.setListData(lTecnicos.toArray());
 //            this.lblHorasInvertidasVentanaPrincipal.setText(String.valueOf(sumarHorasInvertidas(cHorasGlobal)));
-//            
+//
 //        }
     }//GEN-LAST:event_lstReclamosActivosValueChanged
 
