@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -196,9 +197,21 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        boolean cerrar = true;
+        this.setDefaultCloseOperation(VtnTiempoIvertido.DISPOSE_ON_CLOSE);
         if (!tarea.isFinalizado()) {
             if (this.chkMarcarTareaFinalizada.isSelected()) {
-                this.controlador.marcarTareaComoFinalizada(tarea);
+                Object [] opciones ={"Si","No"};
+                int confirmacion = JOptionPane.showOptionDialog(this, "El sistema detecto que marcó la tarea como finalizada. Por favor, confirme que la accion es correcta.\n\n¿Es correcta esta acción?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null,opciones,"No");
+                // Si preciona 'Si', se procede a hacer el reclamo solo-lectura y se vuelve a hacer visible la ventana anterior 
+                if (confirmacion == JOptionPane.YES_OPTION) {            
+                    this.controlador.marcarTareaComoFinalizada(tarea);
+                    cerrar = true;
+                } else {
+                // Si presiona 'No', se cambia la operacion por defecto de la ventana para que no haga nada al precionar el boton cerrar               
+                    this.setDefaultCloseOperation(VtnTiempoIvertido.DO_NOTHING_ON_CLOSE);
+                    cerrar = false;
+                }
             }
         }
         
@@ -206,8 +219,12 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
             comprobarFinalizacionDeReclamo(tarea.getReclamo());
         }
         
-        this.previo.setVisible(true);
-        this.dispose();
+        
+        if (cerrar) {
+            this.previo.setVisible(true);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_formWindowClosing
 
     private void btnAgregarTIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTIActionPerformed
@@ -262,8 +279,11 @@ public class VtnTiempoIvertido extends javax.swing.JFrame {
             this.btnAgregarTI.setEnabled(false);
             this.btnEliminarTI.setEnabled(false);
         }
+        
         if (tarea.getReclamo().getFechaFin() != null) {
-            this.btnAgregarTI.setEnabled(false);    
+            this.btnAgregarTI.setEnabled(false);
+            this.btnEliminarTI.setEnabled(false);
+            this.chkMarcarTareaFinalizada.setEnabled(false);
         }
     }
     
