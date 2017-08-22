@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class TipoDeArticulo implements Serializable{
     @SequenceGenerator(name="sec_tipo_de_articulo", initialValue=1, allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_tipo_de_articulo")
     private int id_tipoarticulo;
+    @Column(unique=true)
     private String codigo;
     private String nombre;
     /*====================== Fin Atributos de la clase =======================*/

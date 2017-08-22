@@ -97,7 +97,10 @@ public class TareaARealizar implements Serializable{
             tarea += " - Finalizada";
         } else {
             tarea += " - Pendiente";
-        }
+            if (reclamo.getFechaFin() != null) {
+                tarea += " - Reclamo dado de Baja";
+            }
+        } 
         return tarea;
     }
     

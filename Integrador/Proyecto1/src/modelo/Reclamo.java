@@ -5,8 +5,6 @@
  */
 package modelo;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.GeneratedValue;
@@ -34,7 +32,7 @@ public class Reclamo implements Serializable{
     private int numero; /*este sera la clave principal*/
     private String descProblema;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date fechaEntrada;
+    private final Date fechaEntrada;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaEstimEntrega;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -119,7 +117,7 @@ public class Reclamo implements Serializable{
     
     @Override
     public String toString(){
-        return "("+String.valueOf(this.numero) + ") " + this.descProblema;
+        return "("+String.valueOf(this.numero) + ") Articulo: " + this.articulo.toString() + " - " + this.descProblema;
     }
     
     public void setArticulo(Articulo nArticulo){

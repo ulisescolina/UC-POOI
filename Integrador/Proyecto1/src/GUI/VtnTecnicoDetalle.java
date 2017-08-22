@@ -74,6 +74,12 @@ public class VtnTecnicoDetalle extends javax.swing.JFrame {
             }
         });
 
+        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTabbedPane1FocusGained(evt);
+            }
+        });
+
         jInternalFrame1.setBorder(null);
         jInternalFrame1.setVisible(true);
 
@@ -273,7 +279,7 @@ public class VtnTecnicoDetalle extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -335,6 +341,10 @@ public class VtnTecnicoDetalle extends javax.swing.JFrame {
             this.btnEditarEstadoTarea.setEnabled(false);
         }
     }//GEN-LAST:event_lstTareasAsignadasValueChanged
+
+    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+        reiniciarTecnicoDetalle();
+    }//GEN-LAST:event_jTabbedPane1FocusGained
    
     private void reiniciarTecnicoDetalle() {
         if (this.tecnico instanceof EmpleadoMensual) {

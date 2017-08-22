@@ -66,6 +66,11 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reclamos");
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -319,6 +324,10 @@ public class VtnReclamosPrincipal extends javax.swing.JFrame {
         vrd.setResizable(false);
         vrd.setVisible(true);
     }//GEN-LAST:event_btnEditarDetalleReclamoActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        reiniciarReclamosPrincipal();
+    }//GEN-LAST:event_formFocusGained
 
 private void reiniciarReclamosPrincipal() {
     this.lstReclamos.setListData(this.controlador.listarReclamos().toArray());

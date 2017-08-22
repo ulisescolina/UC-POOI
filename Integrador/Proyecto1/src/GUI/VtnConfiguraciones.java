@@ -444,6 +444,7 @@ public class VtnConfiguraciones extends javax.swing.JFrame {
             this.btnEliminarTareaDefinida.setEnabled(true);
             // obtengo el item seleccionado
             TareaDefinida TD = (TareaDefinida) this.lstTareasDefinidas.getSelectedValue();
+            this.controlador.actualizarTareaDefinida(TD);
             // asigno los valores de los atributos a las caja de texto
             this.txtCodigoTareaDefinida.setText(TD.getCodigoUnico());
             this.txtNombreTareaDefinida.setText(TD.getNombre());

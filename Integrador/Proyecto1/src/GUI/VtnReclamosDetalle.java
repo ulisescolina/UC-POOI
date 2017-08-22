@@ -8,6 +8,8 @@ package GUI;
 import modelo.*;
 import controlador.Controlador;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -226,7 +228,7 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
                 this.dispose();
             } else {
             // Si presiona 'No', se cambia la operacion por defecto de la ventana para que no haga nada al precionar el boton cerrar               
-                this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+                this.setDefaultCloseOperation(VtnReclamosDetalle.DO_NOTHING_ON_CLOSE);
             }
         } else {
             this.previo.setVisible(true);
@@ -307,7 +309,9 @@ public class VtnReclamosDetalle extends javax.swing.JFrame {
         this.cmbTareaARealizar.setSelectedIndex(-1);
         
         /*combo tecnicos con especialidad en ese tipo de articulo*/
-        DefaultComboBoxModel mCmbTecnicosCapacitados = new DefaultComboBoxModel(this.reclamo.getArticulo().getTipoDeArticulo().getTecnicos().toArray());
+        Set<Object> lt = new HashSet();
+        lt.addAll(this.reclamo.getArticulo().getTipoDeArticulo().getTecnicos());
+        DefaultComboBoxModel mCmbTecnicosCapacitados = new DefaultComboBoxModel(lt.toArray());
         this.cmbTecnicoTareaARealizar.setModel(mCmbTecnicosCapacitados);
         this.cmbTecnicoTareaARealizar.setSelectedIndex(-1);
         

@@ -72,6 +72,7 @@ public class Controlador {
             this.persistencia.insertar(TDA);
             this.persistencia.confirmarTransaccion();
         } catch (Exception e) {
+            mensaje("MA", "El código de Tipo de Articulo debe ser único. " + codigo.toUpperCase() +", ya se encuentra registrado.", "Atención");
             this.persistencia.descartarTransaccion();
         }
     }
@@ -119,6 +120,7 @@ public class Controlador {
             this.persistencia.insertar(TD);
             this.persistencia.confirmarTransaccion();
         } catch (Exception e) {
+            mensaje("MA", "El código de la Tarea definida debe ser único. " + CodigoTareaDefinida.toUpperCase() +", ya se encuentra registrado.", "Atención");
             this.persistencia.descartarTransaccion();
         }
     }
@@ -161,6 +163,12 @@ public class Controlador {
         } else {
             return 1;
         }
+    }
+    public void actualizarTareaDefinida(TareaDefinida TD) {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.refrescar(TD);
+        this.persistencia.modificar(TD);
+        this.persistencia.confirmarTransaccion();
     }
     /*================== Fin Metodos para TareaDefinida ======================*/
     
@@ -250,22 +258,6 @@ public class Controlador {
     * La edicion del reclamo no esta permitida
     */
     
-    public int eliminarReclamo(Reclamo r) {
-        if (r.getTareas().isEmpty()) {
-            this.persistencia.iniciarTransaccion();
-            Articulo a = r.getArticulo();
-            a.quitarReclamo(r);
-            r.setArticulo(null);
-            this.persistencia.modificar(a);
-            this.persistencia.eliminar(r);
-            this.persistencia.confirmarTransaccion();
-            return 0;
-        } else {
-            this.persistencia.descartarTransaccion();
-            return 1;
-        }
-    }
-    
     public void setReclamoSoloLectura(Reclamo r) {
         if (r != null) {
             this.persistencia.iniciarTransaccion();
@@ -353,12 +345,13 @@ public class Controlador {
     public int eliminarTecnico(Object t) {
         if (t instanceof EmpleadoJornalero) {
             EmpleadoJornalero EJ = (EmpleadoJornalero) t;
+            this.persistencia.iniciarTransaccion();
             if (EJ.getTareas().isEmpty() && EJ.getArticulosEspecializados().isEmpty()) {
-                this.persistencia.iniciarTransaccion();
                 this.persistencia.eliminar(EJ);
                 this.persistencia.confirmarTransaccion();
                 return 0;
             } else {
+                mensaje("MA", "El tecnico no puede ser dado de baja, razones posibles:\n\n1. Posee tareas asignadas\n2. Posee Articulos en los cuales se Especializa", "Atención");
                 this.persistencia.descartarTransaccion();
                 return 1;
             }
@@ -367,12 +360,13 @@ public class Controlador {
         
         if (t instanceof EmpleadoMensual) {
             EmpleadoMensual EM = (EmpleadoMensual) t;
+            this.persistencia.iniciarTransaccion();
             if (EM.getArticulosEspecializados().isEmpty() && EM.getTareas().isEmpty()) {
-                this.persistencia.iniciarTransaccion();
                 this.persistencia.eliminar(EM);
                 this.persistencia.confirmarTransaccion();
                 return 0;
             } else {
+                mensaje("MA", "El tecnico no puede ser dado de baja, razones posibles:\n\n1. Posee tareas asignadas\n2. Posee Articulos en los cuales se Especializa", "Atención");
                 this.persistencia.descartarTransaccion();
                 return 1;
             }
