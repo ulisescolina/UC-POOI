@@ -5,8 +5,8 @@
  */
 package modelo;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +27,7 @@ public class TareaDefinida implements Serializable{
     @SequenceGenerator(name="sec_tarea_definida", initialValue=1, allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_tarea_definida")
     private int id_tareadefinida;
+    @Column(unique=true)
     private String codigoUnico;
     private String nombre;
     private String descripcion;
